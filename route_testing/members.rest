@@ -1,0 +1,58 @@
+//creating one
+POST http://localhost:3000/members
+Content-Type: application/json
+
+{
+    "name": "A",
+    "DOB": "2022-02-15T12:30:00.000Z",
+    "profession": "koolippani",
+    "email_id": "a@gmail.com",
+    "photo": "photoooo",
+    "GSM_no": "67879614",
+    "WhatsApp_no": "1234567890",
+    "blood_group": "O -ve",
+    "family_status": "divorced",
+    "residential_area": "aaaaaaiouanmaaopamp area",
+    "passport_no": "798798798",
+    "civil_id_no": "98798098",
+    "address_in_India": "Anna veetil, naaluvayal, randam valav, mukkam paalam, near oceanus, kaatadi mukk, P.O.Thana, kannur, kerala, India, Asia, world, universe !lorem ipsum guwacnugnhwuivrguygvub877 ny8rnyaernu89me aup9amu9emu9hmueh09 m9u9hmu 09ue9m um(U)",
+    "tel_no": "13671",
+    "is_family_residing_in_Oman": true,
+    "application_no": "UYG61369",
+    "received_on": "2022-03-15T12:30:00.000Z",
+    "submitted_by": "Arafath",
+    "card_no": "89",
+    "checked_by": "Moideen",
+    "approved_by": "Koya",
+    "president": "Presindran",
+    "secretary": "Zeckran Mon",
+    "family_member_name1": "B",
+    "family_member_DOB1": "2022-02-15T12:30:00Z",
+    "relation1": "Uppa",
+    "shakha_name": "KannurShaka"
+}
+
+
+###
+//getting all
+GET http://localhost:3000/members
+
+
+###
+//getting one
+GET http://localhost:3000/members/65bbd61d78208383d0c625c4
+
+
+###
+//updating one
+PATCH  http://localhost:3000/localhost:3000/members/65bbd61d78208383d0c625c4
+Content-Type:application/json
+
+{
+    "name":"newname"
+}
+
+
+###
+//deleting one
+DELETE http://localhost:3000/members/65bbd61d78208383d0c625c4

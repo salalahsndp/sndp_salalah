@@ -1,0 +1,33 @@
+
+POST http://localhost:3000/shakhas
+//syntax line break
+
+Content-Type:application/json
+{  
+    "shakha_name": "YourShakhaNamegHere"  
+}
+
+//getting all
+###
+GET http://localhost:3000/shakhas
+
+###
+//getting one
+GET http://localhost:3000/shakhas/65ba80fb583045b7bba81694
+
+###
+//updating one
+PATCH http://localhost:3000/shakhas/65ba80fb583045b7bba81694
+
+Content-Type:application/json
+
+
+{
+  
+    "shakha_name": "YourSdiuhakhaNameHere"
+  
+}
+
+###
+//deleting one
+DELETE http://localhost:3000/shakhas/65ba80fb583045b7bba81694
