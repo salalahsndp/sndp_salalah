@@ -20,4 +20,4 @@ const loginRouter = require("./routes/login.js");
 app.use("/api/login", loginRouter);
 
 //starting the server
-app.listen(3000, () => console.log("Server Started"));
+app.listen(5000, () => console.log("Server Started"));
