@@ -29,7 +29,7 @@ adminsRouter.post("/", async (req, res) => {
     const adminData = new adminModel(req.body);
     console.log("Received Admin Data:", adminData);
     await adminData.save();
-    res.json({ message: "success" });
+    res.json(adminData);
   } catch (err) {
     res.status(500).json({ message: err.message }); // Internal Server Error
   }
@@ -65,7 +65,7 @@ adminsRouter.patch("/:id", getadmin, async (req, res) => {
   }
 
   try {
-    updatedAdmin = await res.admin.updateOne();
+    updatedAdmin = await res.admin.save();
     res.json(updatedAdmin);
   } catch (err) {
     res.status(400).json({ message: err.message });

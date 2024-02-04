@@ -87,7 +87,7 @@ shakhaRouter.delete("/:id", async (req, res) => {
   try {
     //await res.member.remove(); // This line might be causing the error
     await shakhaModel.deleteOne({ _id: req.params.id }); //customModel
-    res.json({ message: "Deleted member" });
+    res.json({ message: "Deleted shakha" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

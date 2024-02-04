@@ -101,11 +101,15 @@ const memberSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  family_members: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "family_memberModel" }], //ref:pushing ids from another model named family_memberModel
-  },
+  family_members: [
+    {
+      family_member_name: String,
+      family_member_relation: String,
+    },
+  ],
   shakha: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "shakhaModel" }], //ref:pushing ids from another model named family_memberModel
+    type: String,
+    required: true,
   },
   expiry: {
     type: Date,
