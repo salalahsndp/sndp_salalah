@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./add-member.scss";
+import "./edit-member.scss";
 
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
@@ -14,7 +14,7 @@ import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import Button from "@mui/material/Button";
 
-export default function AddMember() {
+export default function EditMember() {
   const [familyMembersCount, setFamilyMembersCount] = useState(0);
 
   const addFamilyMember = () => {
@@ -27,10 +27,9 @@ export default function AddMember() {
   };
 
   return (
-    <div className="add-member">
+    <div className="edit-member">
       <h2>
-        Add Member
-        {/* <span className="application-no">{generateApplicationNo()}</span> */}
+        Edit Member -<span className="member-code">&nbsp;4567</span>
       </h2>
       <div className="form">
         <div className="left">
@@ -225,7 +224,7 @@ export default function AddMember() {
         </div>
       </div>
 
-      <p className="add-family">Add Family Members:</p>
+      <p className="add-family">Edit Family Members:</p>
       <div className="form-family">
         {[...Array(familyMembersCount)].map((item, index) => {
           return (
@@ -365,7 +364,7 @@ export default function AddMember() {
           fullWidth
           style={{ textTransform: "none", fontSize: "1rem" }}
         >
-          Add Member
+          Update Member
         </Button>
       </div>
     </div>

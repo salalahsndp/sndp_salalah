@@ -10,11 +10,18 @@
     margin: auto;
   }
 
-  .add-branch-btn {
+  .add-branch {
     display: flex;
     justify-content: end;
     max-width: 600px;
     margin: auto;
     margin-bottom: 1.5rem;
+    align-items: center;
+    column-gap: 0.5rem;
+    align-content: stretch;
+
+    .add-btn {
+      height: 100%;
+    }
   }
 }

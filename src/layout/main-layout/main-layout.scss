@@ -4,6 +4,7 @@
 
 .main-layout-body {
   display: flex;
+  min-height: 100%;
 
   .sidebar {
     flex: 200px;

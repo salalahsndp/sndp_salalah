@@ -9,6 +9,7 @@ import MainLayout from "./layout/main-layout/MainLayout";
 import Members from "./pages/members/Members";
 import theme from "./material-ui/theme/Theme";
 import { ThemeProvider } from "@emotion/react";
+import EditMember from "./pages/members/edit-member/EditMember";
 
 export default function App() {
   return (
@@ -38,6 +39,14 @@ export default function App() {
               element={
                 <MainLayout>
                   <Members />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/edit-member/:id"
+              element={
+                <MainLayout>
+                  <EditMember />
                 </MainLayout>
               }
             />

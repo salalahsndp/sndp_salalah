@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import "./members.scss";
-import { Link } from "react-router-dom";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -37,6 +36,14 @@ export default function Members() {
     },
   }));
 
+  const [branch, setBranch] = useState("all");
+
+  let onSelectBranch = (e) => {
+    console.log(e)
+    console.log(e.target.value)
+    setBranch(e.target.value);
+  };
+
   let memberDummy = {
     name: "David John",
     profession: "Docotor",
@@ -56,13 +63,24 @@ export default function Members() {
         <div className="sort-btn">
           <FormControl size="small" style={{ width: "200px" }}>
             <InputLabel id="demo-simple-select-label-2">Shakha</InputLabel>
-            <Select labelId="demo-simple-select-labe-2" label="Shakha">
-              <MenuItem value={10} defaultChecked>
+            <Select
+              labelId="demo-simple-select-labe-2"
+              label="Shakha"
+              value={branch}
+              onChange={onSelectBranch}
+            >
+              <MenuItem value={"all"}>
                 All
               </MenuItem>
-              <MenuItem value={20}>shakha 1</MenuItem>
-              <MenuItem value={30}>shakha 2</MenuItem>
-              <MenuItem value={10}>shakha 3</MenuItem>
+              <MenuItem value={"shakha 1"}>
+                shakha 1
+              </MenuItem>
+              <MenuItem value={"shakha 2"}>
+                shakha 2
+              </MenuItem>
+              <MenuItem value={"shakha 3"}>
+                shakha 3
+              </MenuItem>
             </Select>
           </FormControl>
         </div>
@@ -79,7 +97,7 @@ export default function Members() {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>App. No.</StyledTableCell>
+                <StyledTableCell>Code</StyledTableCell>
                 <StyledTableCell>Name</StyledTableCell>
                 <StyledTableCell>Profession</StyledTableCell>
                 <StyledTableCell>Whatsapp</StyledTableCell>

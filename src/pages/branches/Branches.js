@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./branches.scss";
 
 import Table from "@mui/material/Table";
@@ -12,6 +12,9 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import TextField from "@mui/material/TextField";
+import EditBranchModal from "./edit-branch-modal/EditBranchModal";
+import DeleteBranchModal from "./delete-branch-modal/DeleteBranchModal";
 
 export default function Branches() {
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -32,18 +35,32 @@ export default function Branches() {
 
   let rows = ["shakha 1", "shakha 2", "shakha 3", "shakha 4", "shakha 5"];
 
+  let [editModal, setEditModal] = useState(false);
+  let [deleteModal, setDeleteModal] = useState(false);
+
   return (
     <div className="branches">
       <h2>Shakhas</h2>
 
-      <div className="add-branch-btn">
-        <Button
-          variant="contained"
-          size="small"
-          style={{ textTransform: "none", fontSize: '.9rem' }}
-        >
-          Add Shakha
-        </Button>
+      <div className="add-branch">
+        <div className="input-field">
+          <TextField
+            label="New Shakha"
+            variant="outlined"
+            size="small"
+            fullWidth
+          />
+        </div>
+        <div className="add-btn">
+          <Button
+            variant="contained"
+            size="small"
+            style={{ textTransform: "none", fontSize: "1rem" }}
+            fullWidth
+          >
+            Add
+          </Button>
+        </div>
       </div>
 
       <div className="all-branches">
@@ -70,10 +87,24 @@ export default function Branches() {
                     {row}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    <EditIcon style={{color: 'darkblue', cursor: 'pointer', fontSize: '1.25rem'}} />
+                    <EditIcon
+                      style={{
+                        color: "darkblue",
+                        cursor: "pointer",
+                        fontSize: "1.25rem",
+                      }}
+                      onClick={() => setEditModal(true)}
+                    />
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    <DeleteIcon style={{color: 'darkred', cursor: 'pointer', fontSize: '1.25rem'}} />
+                    <DeleteIcon
+                      style={{
+                        color: "darkred",
+                        cursor: "pointer",
+                        fontSize: "1.25rem",
+                      }}
+                      onClick={() => setDeleteModal(true)}
+                    />
                   </TableCell>
                 </StyledTableRow>
               ))}
@@ -81,6 +112,15 @@ export default function Branches() {
           </Table>
         </TableContainer>
       </div>
+
+      <EditBranchModal
+        show={editModal}
+        closeModal={() => setEditModal(false)}
+      />
+      <DeleteBranchModal
+        show={deleteModal}
+        closeModal={() => setDeleteModal(false)}
+      />
     </div>
   );
 }
