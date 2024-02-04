@@ -11,13 +11,13 @@ app.use(express.json());
 
 //importing routers
 const membersRouter = require("./routes/members.js");
-app.use("/members", membersRouter);
+app.use("/api/members", membersRouter);
 const adminsRouter = require("./routes/admins.js");
-app.use("/admins", adminsRouter);
+app.use("/api/admins", adminsRouter);
 const shakhaRouter = require("./routes/shakhas.js");
-app.use("/shakhas", shakhaRouter);
+app.use("/api/shakhas", shakhaRouter);
 const loginRouter = require("./routes/login.js");
-app.use("/login", loginRouter);
+app.use("/api/login", loginRouter);
 
 //starting the server
 app.listen(3000, () => console.log("Server Started"));
