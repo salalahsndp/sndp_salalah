@@ -34,9 +34,24 @@ async function getMember(req, res, next) {
 //creating one
 membersRouter.post("/", async (req, res) => {
   try {
+    const createdFamilyMemberIds = [];
+    const familyMemberdetails = [];
     const new_member = new memberModel(req.body);
     const savedMember = await new_member.save();
-    res.status(201).json(savedMember);
+    for (const familyMemberData of req.body.family_members) {
+      const familyMember = new family_memberModel(familyMemberData);
+      const savedFamilyMember = await familyMember.save();
+      createdFamilyMemberIds.push(savedFamilyMember._id);
+      savedMember.family_members = createdFamilyMemberIds;
+      const familyMemberDetail = await family_memberModel.findById(
+        savedFamilyMember._id
+      );
+      familyMemberdetails.push(familyMemberDetail);
+    }
+    res.status(200).json({
+      savedMember,
+      familyMemberdetails,
+    });
   } catch (err) {
     res.status(500).json({ message: err.message }); // Internal Server Error
   }
