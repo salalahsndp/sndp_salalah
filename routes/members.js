@@ -1,5 +1,6 @@
 const express = require("express");
 const membersRouter = express.Router();
+const mongoose = require("mongoose");
 
 //importing models
 const memberModel = require("../models/member", {
@@ -34,21 +35,20 @@ async function getMember(req, res, next) {
 //creating one
 membersRouter.post("/", async (req, res) => {
   try {
-    const createdFamilyMemberIds = [];
     const familyMemberdetails = [];
     const new_member = new memberModel(req.body);
+    new_member.family_members = [];
+    //if we create a var and save the new member to it ,it will display the "family_members" field as it is in the payload (with all the details)
     for (const familyMemberData of req.body.family_members) {
       const familyMember = new family_memberModel(familyMemberData);
-      const savedFamilyMember = await familyMember.save();
-      createdFamilyMemberIds.push(savedFamilyMember._id);
-      new_member.family_members = createdFamilyMemberIds;
+      await familyMember.save();
+      new_member.family_members.push(familyMember._id);
       const familyMemberDetail = await family_memberModel.findById(
-        savedFamilyMember._id
+        familyMember._id
       );
       familyMemberdetails.push(familyMemberDetail);
     }
     const savedMember = await new_member.save();
-
     res.status(200).json({
       savedMember,
       familyMemberdetails,
@@ -69,9 +69,19 @@ membersRouter.get("/", async (req, res) => {
 });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //geting one
-membersRouter.get("/:id", getMember, (req, res) => {
+membersRouter.get("/:id", getMember, async (req, res) => {
   //middleware gets activated;
-  res.json(res.member);
+  const familyMemberdetails = [];
+  for (const familyMember of res.member.family_members) {
+    const familyMemberDetail = await family_memberModel.findOne({
+      _id: familyMember._id,
+    });
+    familyMemberdetails.push(familyMemberDetail);
+  }
+  res.status(200).json({
+    member: res.member.family_members, //sending an object as the response
+    familyMemberdetails: familyMemberdetails,
+  });
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
