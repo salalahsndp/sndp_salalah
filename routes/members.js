@@ -37,17 +37,18 @@ membersRouter.post("/", async (req, res) => {
     const createdFamilyMemberIds = [];
     const familyMemberdetails = [];
     const new_member = new memberModel(req.body);
-    const savedMember = await new_member.save();
     for (const familyMemberData of req.body.family_members) {
       const familyMember = new family_memberModel(familyMemberData);
       const savedFamilyMember = await familyMember.save();
       createdFamilyMemberIds.push(savedFamilyMember._id);
-      savedMember.family_members = createdFamilyMemberIds;
+      new_member.family_members = createdFamilyMemberIds;
       const familyMemberDetail = await family_memberModel.findById(
         savedFamilyMember._id
       );
       familyMemberdetails.push(familyMemberDetail);
     }
+    const savedMember = await new_member.save();
+
     res.status(200).json({
       savedMember,
       familyMemberdetails,
