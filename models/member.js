@@ -101,13 +101,7 @@ const memberSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  family_members: [
-    {
-      family_member_name: String,
-      family_member_relation: String,
-      // Other fields specific to family members...
-    },
-  ],
+  family_members: [{}],
   shakha: {
     type: String,
     required: true,

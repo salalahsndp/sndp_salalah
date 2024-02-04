@@ -70,19 +70,36 @@ membersRouter.get("/", async (req, res) => {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //geting one
 membersRouter.get("/:id", getMember, async (req, res) => {
-  //middleware gets activated;
+  // Middleware gets activated;
   const familyMemberdetails = [];
-  for (const familyMember of res.member.family_members) {
+
+  for (let i = 0; i < res.member.family_members.length; i++) {
     const familyMemberDetail = await family_memberModel.findOne({
-      _id: familyMember._id,
+      _id: res.member.family_members[i],
     });
     familyMemberdetails.push(familyMemberDetail);
   }
+
   res.status(200).json({
-    member: res.member.family_members, //sending an object as the response
+    member: res.member, // Sending an object as the response
     familyMemberdetails: familyMemberdetails,
   });
 });
+
+// membersRouter.get("/:id", getMember, async (req, res) => {
+//   //middleware gets activated;
+//   const familyMemberdetails = [];
+//   for (const familyMember of res.member.family_members) {
+//     const familyMemberDetail = await family_memberModel.findOne({
+//       _id,
+//     });
+//     familyMemberdetails.push(familyMemberDetail);
+//   }
+//   res.status(200).json({
+//     member: res.member, //sending an object as the response
+//     familyMemberdetails: familyMemberdetails,
+//   });
+// });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //updating one
