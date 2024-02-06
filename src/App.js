@@ -10,12 +10,15 @@ import Members from "./pages/members/Members";
 import theme from "./material-ui/theme/Theme";
 import { ThemeProvider } from "@emotion/react";
 import EditMember from "./pages/members/edit-member/EditMember";
+import Member from "./pages/members/member/Member";
+import ScrollToTop from "./services/scrollToTop";
 
 export default function App() {
   return (
     <div className="app">
       <ThemeProvider theme={theme}>
         <BrowserRouter>
+        <ScrollToTop />
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route
@@ -47,6 +50,14 @@ export default function App() {
               element={
                 <MainLayout>
                   <EditMember />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/members/:id"
+              element={
+                <MainLayout>
+                  <Member />
                 </MainLayout>
               }
             />

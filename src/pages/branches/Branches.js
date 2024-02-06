@@ -118,6 +118,7 @@ export default function Branches() {
         closeModal={() => setEditModal(false)}
       />
       <DeleteBranchModal
+        shakha={"shakha 1"}
         show={deleteModal}
         closeModal={() => setDeleteModal(false)}
       />

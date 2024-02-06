@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./members.scss";
 
 import Table from "@mui/material/Table";
@@ -17,6 +18,8 @@ import PrintIcon from "@mui/icons-material/Print";
 import { exportToCSV } from "../../services/exportToExcel";
 
 export default function Members() {
+  const navigate = useNavigate();
+
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {
       backgroundColor: theme.palette.action.hover,
@@ -39,8 +42,8 @@ export default function Members() {
   const [branch, setBranch] = useState("all");
 
   let onSelectBranch = (e) => {
-    console.log(e)
-    console.log(e.target.value)
+    console.log(e);
+    console.log(e.target.value);
     setBranch(e.target.value);
   };
 
@@ -54,6 +57,10 @@ export default function Members() {
     shakha: "shakha 1",
   };
   let rows = [memberDummy, memberDummy, memberDummy, memberDummy, memberDummy];
+
+  let onMemberClick = (id) => {
+    navigate("/members/" + id);
+  };
 
   return (
     <div className="members">
@@ -69,18 +76,10 @@ export default function Members() {
               value={branch}
               onChange={onSelectBranch}
             >
-              <MenuItem value={"all"}>
-                All
-              </MenuItem>
-              <MenuItem value={"shakha 1"}>
-                shakha 1
-              </MenuItem>
-              <MenuItem value={"shakha 2"}>
-                shakha 2
-              </MenuItem>
-              <MenuItem value={"shakha 3"}>
-                shakha 3
-              </MenuItem>
+              <MenuItem value={"all"}>All</MenuItem>
+              <MenuItem value={"shakha 1"}>shakha 1</MenuItem>
+              <MenuItem value={"shakha 2"}>shakha 2</MenuItem>
+              <MenuItem value={"shakha 3"}>shakha 3</MenuItem>
             </Select>
           </FormControl>
         </div>
@@ -112,6 +111,7 @@ export default function Members() {
                 <StyledTableRow
                   key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  onClick={() => onMemberClick("23")}
                 >
                   <TableCell component="th" scope="row">
                     {index + 1}

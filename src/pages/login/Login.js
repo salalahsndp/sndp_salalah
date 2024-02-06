@@ -1,10 +1,17 @@
 import React from "react";
 import "./login.scss";
+import { useNavigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
 export default function Login() {
+  const navigate = useNavigate();
+
+  let onLogin = () => {
+    navigate("/");
+  };
+
   return (
     <div className="login">
       <div className="login-form">
@@ -25,7 +32,9 @@ export default function Login() {
           size="small"
           fullWidth
         />
-        <Button variant="contained" fullWidth>Login</Button>
+        <Button variant="contained" fullWidth onClick={onLogin}>
+          Login
+        </Button>
       </div>
     </div>
   );
