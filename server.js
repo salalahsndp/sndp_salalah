@@ -8,6 +8,8 @@ db.on("error", (error) => console.error(error));
 db.once("open", () => console.log("Connected to database"));
 mongoose.connect(process.env.DATABASE_URL);
 app.use(express.json());
+const path = require("path");
+app.use(express.static(path.join(__dirname, "dist")));
 
 //importing routers
 const membersRouter = require("./routes/members.js");
@@ -18,6 +20,11 @@ const shakhaRouter = require("./routes/shakhas.js");
 app.use("/api/shakhas", shakhaRouter);
 const loginRouter = require("./routes/login.js");
 app.use("/api/login", loginRouter);
+
+// Serving the react build
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 //starting the server
 app.listen(5000, () => console.log("Server Started"));
