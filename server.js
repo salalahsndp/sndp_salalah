@@ -27,4 +27,4 @@ app.get("*", function (req, res) {
 });
 
 //starting the server
-app.listen(5000, () => console.log("Server Started"));
+app.listen(process.env.port || 5000, () => console.log("Server Started"));
