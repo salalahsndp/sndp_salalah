@@ -19,7 +19,7 @@ const memberSchema = new mongoose.Schema({
   },
   photo: {
     type: String,
-    required: true,
+    // required: true,
   },
   GSM_no: {
     type: String,

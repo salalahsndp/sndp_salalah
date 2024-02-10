@@ -2,6 +2,8 @@ require("dotenv").config();
 
 const express = require("express");
 const app = express();
+const cors = require("cors");
+app.use(cors());
 const mongoose = require("mongoose");
 const db = mongoose.connection;
 db.on("error", (error) => console.error(error));

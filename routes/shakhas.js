@@ -50,7 +50,9 @@ shakhaRouter.post("/", async (req, res) => {
 //getting all
 shakhaRouter.get("/", async (req, res) => {
   try {
-    const all_shakha_data = await shakhaModel.find();
+    const all_shakha_data = await shakhaModel
+      .find()
+      .sort({ shakha_name: "asc" });
     res.json(all_shakha_data); //filenameofcustommodelmodelname
   } catch (err) {
     res.status(500).json({ messsage: err.message }); //to find the error in database,the error is not users fault
