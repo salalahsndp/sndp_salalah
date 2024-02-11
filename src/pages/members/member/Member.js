@@ -62,6 +62,12 @@ export default function Member() {
     content: () => componentRef.current,
   });
 
+  let [deleteMember, setDeleteMember] = useState();
+  let onDeleteClick = (item) => {
+    setDeleteMember(item);
+    setDeleteModal(true);
+  };
+
   if (!member) return;
 
   return (
@@ -246,7 +252,7 @@ export default function Member() {
                 fullWidth
                 color="error"
                 style={{ textTransform: "none", fontSize: "1rem" }}
-                onClick={() => setDeleteModal(true)}
+                onClick={() => onDeleteClick(member)}
               >
                 Delete
               </Button>
@@ -258,7 +264,7 @@ export default function Member() {
       <MemberDeleteModal
         show={deleteModal}
         closeModal={() => setDeleteModal(false)}
-        member={"Arshad Danish"}
+        member={deleteMember}
       />
     </Fragment>
   );

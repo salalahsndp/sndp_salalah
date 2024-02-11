@@ -3,8 +3,17 @@ import "./member-delete-modal.scss";
 
 import Button from "@mui/material/Button";
 import ModalLayout from "../../../../layout/modal-layout/ModalLayout";
+import api from "../../../../api";
 
 export default function MemberDeleteModal({ closeModal, show, member }) {
+  const [submitBtn, setSubmitBtn] = React.useState(false);
+
+  let onDelete = async (id) => {
+    setSubmitBtn(true);
+    await api.delete(`members/${id}`);
+    window.location.reload();
+  };
+
   return (
     <ModalLayout closeModal={closeModal} show={show}>
       <div className="delete-branch-modal">
@@ -18,8 +27,9 @@ export default function MemberDeleteModal({ closeModal, show, member }) {
               textTransform: "none",
               fontSize: "1rem",
             }}
+            onClick={() => onDelete(member?._id)}
           >
-            Delete
+            {submitBtn ? "Deleting..." : "Delete"}
           </Button>
         </div>
       </div>
