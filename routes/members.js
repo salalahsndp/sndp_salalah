@@ -67,8 +67,15 @@ membersRouter.post("/", async (req, res) => {
 //getting all
 membersRouter.get("/", async (req, res) => {
   try {
-    const all_members_data = await memberModel.find();
-    res.json(all_members_data); //filenameofcustommodelmodelname
+    if (req.query.shakha) {
+      const all_members_data = await memberModel
+        .find({ shakha: req.query.shakha })
+        .sort({ name: "asc" });
+      res.json(all_members_data);
+    } else {
+      const all_members_data = await memberModel.find().sort({ name: "asc" });
+      res.json(all_members_data); //filenameofcustommodelmodelname
+    }
   } catch (err) {
     res.status(500).json({ messsage: err.message }); //to find the error in database,the error is not users fault
   }
@@ -113,6 +120,28 @@ membersRouter.get("/:id", getMember, async (req, res) => {
 membersRouter.patch("/:id", getMember, async (req, res) => {
   try {
     // Update member fields with values from req.body
+    if (req.body.family_members) {
+      console.log(req.body.family_members);
+      for (let i = 0; i < res.member.family_members.length; i++) {
+        await family_memberModel.findByIdAndDelete(res.member.family_members[i]);
+      }
+
+      const family_members = [];
+      for (let i = 0; i < req.body.family_members.length; i++) {
+        const familyMember = new family_memberModel({
+          family_member_name: req.body.family_members[i].family_member_name,
+          relation: req.body.family_members[i].relation,
+          family_member_DOB: req.body.family_members[i].family_member_DOB,
+        });
+        await familyMember.save();
+        family_members.push(familyMember._id);
+        console.log(family_members);
+      }
+
+      req.body.family_members = family_members;
+      console.log(req.body.family_members);
+    }
+
     Object.assign(res.member, req.body);
 
     // Save the updated member
