@@ -1,23 +1,27 @@
 import React from "react";
 import "./member-delete-modal.scss";
+import { useNavigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 import ModalLayout from "../../../../layout/modal-layout/ModalLayout";
 import api from "../../../../api";
 
 export default function MemberDeleteModal({ closeModal, show, member }) {
+  const navigate = useNavigate();
   const [submitBtn, setSubmitBtn] = React.useState(false);
 
   let onDelete = async (id) => {
     setSubmitBtn(true);
     await api.delete(`members/${id}`);
-    window.location.reload();
+    navigate("/members");
   };
 
   return (
     <ModalLayout closeModal={closeModal} show={show}>
       <div className="delete-branch-modal">
-        <div className="warning">Are you sure you want to delete {member}?</div>
+        <div className="warning">
+          Are you sure you want to delete the member {member?.name}?
+        </div>
         <div className="delete-btn">
           <Button
             variant="contained"

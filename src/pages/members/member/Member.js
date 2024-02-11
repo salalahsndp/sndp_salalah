@@ -50,7 +50,6 @@ export default function Member() {
     },
   }));
 
-  let rows = ["shakha 1", "shakha 2", "shakha 3", "shakha 4", "shakha 5"];
 
   let [deleteModal, setDeleteModal] = useState(false);
 
