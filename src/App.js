@@ -12,13 +12,14 @@ import { ThemeProvider } from "@emotion/react";
 import EditMember from "./pages/members/edit-member/EditMember";
 import Member from "./pages/members/member/Member";
 import ScrollToTop from "./services/scrollToTop";
+import IdCardContainer from "./pages/members/member/id-card/IdCardContainer";
 
 export default function App() {
   return (
     <div className="app">
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-        <ScrollToTop />
+          <ScrollToTop />
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route
@@ -58,6 +59,14 @@ export default function App() {
               element={
                 <MainLayout>
                   <Member />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/id-card"
+              element={
+                <MainLayout>
+                  <IdCardContainer />
                 </MainLayout>
               }
             />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./branches.scss";
 
 import Table from "@mui/material/Table";
@@ -15,6 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import TextField from "@mui/material/TextField";
 import EditBranchModal from "./edit-branch-modal/EditBranchModal";
 import DeleteBranchModal from "./delete-branch-modal/DeleteBranchModal";
+import api from "../../api";
 
 export default function Branches() {
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -33,35 +34,74 @@ export default function Branches() {
     },
   }));
 
-  let rows = ["shakha 1", "shakha 2", "shakha 3", "shakha 4", "shakha 5"];
-
   let [editModal, setEditModal] = useState(false);
   let [deleteModal, setDeleteModal] = useState(false);
+  let [editBranch, setEditBranch] = useState();
+  let [deleteBranch, setDeleteBranch] = useState();
+
+  useEffect(() => {
+    fetchBranches();
+  }, []);
+
+  const [shakhas, setShakhas] = React.useState([]);
+
+  let fetchBranches = async () => {
+    let { data } = await api.get("shakhas");
+    setShakhas(data);
+  };
+
+  let [formData, setFormData] = useState({});
+  const [submitBtn, setSubmitBtn] = useState(0);
+  let onInputChange = async (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  let onFormSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitBtn(1);
+    await api.post("shakhas", formData);
+    window.location.reload();
+  };
+
+  let onEditClick = (item) => {
+    setEditBranch(item);
+    setEditModal(true);
+  };
+
+  let onDeleteClick = (item) => {
+    setDeleteBranch(item);
+    setDeleteModal(true);
+  };
 
   return (
     <div className="branches">
       <h2>Shakhas</h2>
 
-      <div className="add-branch">
-        <div className="input-field">
-          <TextField
-            label="New Shakha"
-            variant="outlined"
-            size="small"
-            fullWidth
-          />
+      <form onSubmit={onFormSubmit}>
+        <div className="add-branch">
+          <div className="input-field">
+            <TextField
+              label="New Shakha"
+              variant="outlined"
+              size="small"
+              fullWidth
+              name="shakha_name"
+              required
+              onChange={onInputChange}
+            />
+          </div>
+          <div className="add-btn">
+            <Button
+              variant="contained"
+              size="small"
+              style={{ textTransform: "none", fontSize: "1rem" }}
+              fullWidth
+              type="submit"
+            >
+              {submitBtn ? "Adding..." : "Add"}
+            </Button>
+          </div>
         </div>
-        <div className="add-btn">
-          <Button
-            variant="contained"
-            size="small"
-            style={{ textTransform: "none", fontSize: "1rem" }}
-            fullWidth
-          >
-            Add
-          </Button>
-        </div>
-      </div>
+      </form>
 
       <div className="all-branches">
         <TableContainer component={Paper}>
@@ -75,7 +115,7 @@ export default function Branches() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row, index) => (
+              {shakhas.map((item, index) => (
                 <StyledTableRow
                   key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -84,7 +124,7 @@ export default function Branches() {
                     {index + 1}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {row}
+                    {item.shakha_name}
                   </TableCell>
                   <TableCell component="th" scope="row">
                     <EditIcon
@@ -93,7 +133,7 @@ export default function Branches() {
                         cursor: "pointer",
                         fontSize: "1.25rem",
                       }}
-                      onClick={() => setEditModal(true)}
+                      onClick={() => onEditClick(item)}
                     />
                   </TableCell>
                   <TableCell component="th" scope="row">
@@ -103,7 +143,7 @@ export default function Branches() {
                         cursor: "pointer",
                         fontSize: "1.25rem",
                       }}
-                      onClick={() => setDeleteModal(true)}
+                      onClick={() => onDeleteClick(item)}
                     />
                   </TableCell>
                 </StyledTableRow>
@@ -116,11 +156,12 @@ export default function Branches() {
       <EditBranchModal
         show={editModal}
         closeModal={() => setEditModal(false)}
+        branch={editBranch}
       />
       <DeleteBranchModal
-        shakha={"shakha 1"}
         show={deleteModal}
         closeModal={() => setDeleteModal(false)}
+        branch={deleteBranch}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./members.scss";
 
@@ -16,9 +16,31 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import PrintIcon from "@mui/icons-material/Print";
 import { exportToCSV } from "../../services/exportToExcel";
+import api from "../../api";
 
 export default function Members() {
   const navigate = useNavigate();
+
+  const [shakhas, setShakhas] = React.useState([]);
+
+  let fetchBranches = async () => {
+    let { data } = await api.get("shakhas");
+    setShakhas(data);
+  };
+
+  useEffect(() => {
+    fetchMembers();
+    fetchBranches();
+  }, []);
+
+  const [members, setMembers] = React.useState([]);
+  const [filteredMembers, setFilteredMembers] = React.useState([]);
+
+  let fetchMembers = async () => {
+    let { data } = await api.get("members");
+    setMembers(data);
+    setFilteredMembers(data);
+  };
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {
@@ -41,22 +63,23 @@ export default function Members() {
 
   const [branch, setBranch] = useState("all");
 
-  let onSelectBranch = (e) => {
-    console.log(e);
-    console.log(e.target.value);
-    setBranch(e.target.value);
+  const findItemsByField = (arr, field, value) => {
+    return arr.filter((item) => item[field] === value);
   };
 
-  let memberDummy = {
-    name: "David John",
-    profession: "Docotor",
-    watsapp: "+91 9995175109",
-    email: "davidjohn@gmail.com",
-    maritalStatus: "single",
-    bloodGroup: "B+",
-    shakha: "shakha 1",
+  let onSelectBranch = (e) => {
+    if (e.target.value !== "all") {
+      const newFilteredMembers = findItemsByField(
+        members,
+        "shakha",
+        e.target.value
+      );
+      setFilteredMembers(newFilteredMembers);
+    } else {
+      setFilteredMembers(members);
+    }
+    setBranch(e.target.value);
   };
-  let rows = [memberDummy, memberDummy, memberDummy, memberDummy, memberDummy];
 
   let onMemberClick = (id) => {
     navigate("/members/" + id);
@@ -77,16 +100,20 @@ export default function Members() {
               onChange={onSelectBranch}
             >
               <MenuItem value={"all"}>All</MenuItem>
-              <MenuItem value={"shakha 1"}>shakha 1</MenuItem>
-              <MenuItem value={"shakha 2"}>shakha 2</MenuItem>
-              <MenuItem value={"shakha 3"}>shakha 3</MenuItem>
+              {shakhas.map((item, index) => {
+                return (
+                  <MenuItem key={index} value={item.shakha_name}>
+                    {item.shakha_name}
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
         </div>
         <div className="export">
           <PrintIcon
             style={{ color: "darkblue", cursor: "pointer" }}
-            onClick={(e) => exportToCSV(rows, "members")}
+            onClick={(e) => exportToCSV(filteredMembers, "members")}
           />
         </div>
       </div>
@@ -107,35 +134,35 @@ export default function Members() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row, index) => (
+              {filteredMembers.map((item, index) => (
                 <StyledTableRow
                   key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  onClick={() => onMemberClick("23")}
+                  onClick={() => onMemberClick(item._id)}
                 >
                   <TableCell component="th" scope="row">
-                    {index + 1}
+                    {item.member_code}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {row.name}
+                    {item.name}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {row.profession}
+                    {item.profession}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {row.watsapp}
+                    {item.WhatsApp_no}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {row.email}
+                    {item.email_id}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {row.maritalStatus}
+                    {item.family_status}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {row.bloodGroup}
+                    {item.blood_group}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {row.shakha}
+                    {item.shakha}
                   </TableCell>
                 </StyledTableRow>
               ))}

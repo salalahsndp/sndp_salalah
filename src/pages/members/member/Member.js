@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState, useEffect } from "react";
 import "./member.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -13,8 +13,27 @@ import Paper from "@mui/material/Paper";
 import PrintIcon from "@mui/icons-material/Print";
 import Button from "@mui/material/Button";
 import MemberDeleteModal from "./member-delete-dialog/MemberDeleteModal";
+import { useReactToPrint } from "react-to-print";
+import { IdCard } from "./id-card/IdCard";
+import api from "../../../api";
+import { toDateView } from "../../../services/toDateView";
 
 export default function Member() {
+  const { id } = useParams();
+
+  useEffect(() => {
+    fetchMember();
+  }, []);
+
+  const [member, setMember] = React.useState({});
+  const [family, setFamily] = React.useState([]);
+
+  let fetchMember = async () => {
+    let { data } = await api.get("members/" + id);
+    setMember(data.member);
+    setFamily(data.familyMemberdetails);
+  };
+
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {
       backgroundColor: theme.palette.action.hover,
@@ -37,78 +56,108 @@ export default function Member() {
 
   const navigate = useNavigate();
 
+  const componentRef = useRef();
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
+  if (!member) return;
+
   return (
     <Fragment>
       <div className="member">
         <h2>
-          Member - <span className="member-code">{3654}</span>
+          Member - <span className="member-code">{member.member_code}</span>
         </h2>
         <div className="details">
           <div className="print-icon">
             <PrintIcon
               style={{ color: "darkblue", cursor: "pointer" }}
-              // onClick={}
+              onClick={handlePrint}
             />
           </div>
+
+          <div style={{ display: "none" }}>
+            <IdCard ref={componentRef} />
+          </div>
+
           <div className="photo"></div>
           <div className="row">
             <p>
-              <span className="title">Application No: </span>APL-4567
+              <span className="title">Application No: </span>
+              {member.application_no}
             </p>
             <p>
-              <span className="title">Name: </span>Arshad Danish
+              <span className="title">Name: </span>
+              {member.name}
             </p>
             <p>
-              <span className="title">Profession: </span>Software Engineer
+              <span className="title">Profession: </span>
+              {member.profession}
             </p>
             <p>
-              <span className="title">DOB: </span>23/10/2001
+              <span className="title">DOB: </span>
+              {toDateView(member.DOB)}
             </p>
             <p>
-              <span className="title">GSM No: </span>1234567890
+              <span className="title">GSM No: </span>
+              {member.GSM_no}
             </p>
             <p>
-              <span className="title">Whatsapp: </span>+91 9995168885
+              <span className="title">Whatsapp: </span>
+              {member.WhatsApp_no}
             </p>
             <p>
-              <span className="title">Blood Group: </span>B+
+              <span className="title">Blood Group: </span>
+              {member.blood_group}
             </p>
             <p>
-              <span className="title">Marital Status: </span>Yes
+              <span className="title">Marital Status: </span>
+              {member.family_status}
             </p>
             <p>
-              <span className="title">Email ID: </span>johndaniel@gmail.com
+              <span className="title">Email ID: </span>
+              {member.email_id}
             </p>
             <p>
-              <span className="title">Residential Area: </span>Ramanagar Street
+              <span className="title">Residential Area: </span>
+              {member.residential_area}
             </p>
             <p>
-              <span className="title">Passport No: </span>7676767676
+              <span className="title">Passport No: </span>
+              {member.passport_no}
             </p>
             <p>
-              <span className="title">Civil ID No: </span>987987987987
+              <span className="title">Civil ID No: </span>
+              {member.civil_id_no}
+            </p>
+            <p style={{ whiteSpace: "pre-line" }}>
+              <span className="title">Address in India: </span>
+              {member.address_in_India}
             </p>
             <p>
-              <span className="title">Address in India: </span>Rose Villa,
-              Ramanagar Street 1, Yercaud, Tamil Nadu - 680019
+              <span className="title">Telephone No(India): </span>
+              {member.tel_no}
             </p>
             <p>
-              <span className="title">Telephone No(India): </span>+91 9995194108
-            </p>
-            <p>
-              <span className="title">Family residing in Oman: </span>Yes
+              <span className="title">Family residing in Oman: </span>
+              {member.is_family_residing_in_Oman ? "Yes" : "No"}
             </p>
           </div>
           <h3 className="sndp-title">SNDP India Unit Details</h3>
           <div className="row">
             <p>
-              <span className="title">Shakha: </span>Oman
+              <span className="title">Shakha: </span>
+              {member.shakha}
             </p>
             <p>
-              <span className="title">Union: </span>Oman
+              <span className="title">Union: </span>
+              {member.union}
             </p>
             <p>
-              <span className="title">District: </span>Oman
+              <span className="title">District: </span>
+              {member.district}
             </p>
           </div>
           <h3 className="family-title">Family Members</h3>
@@ -123,19 +172,19 @@ export default function Member() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row, index) => (
+                  {family.map((item, index) => (
                     <StyledTableRow
                       key={index}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        John Daniel Bennett
+                        {item.family_member_name}
                       </TableCell>
                       <TableCell component="th" scope="row">
-                        Son
+                        {item.relation}
                       </TableCell>
                       <TableCell component="th" scope="row">
-                        23/10/2001
+                        {toDateView(item.family_member_DOB)}
                       </TableCell>
                     </StyledTableRow>
                   ))}
@@ -146,28 +195,36 @@ export default function Member() {
           <h3 className="office-title">Office Use</h3>
           <div className="row">
             <p>
-              <span className="title">Recieved On: </span>APL-4567
+              <span className="title">Recieved On: </span>
+              {toDateView(member.received_on)}
             </p>
             <p>
-              <span className="title">Submitted By: </span>23/10/2001
+              <span className="title">Submitted By: </span>
+              {member.submitted_by}
             </p>
             <p>
-              <span className="title">Checked By: </span>1234567890
+              <span className="title">Checked By: </span>
+              {member.checked_by}
             </p>
             <p>
-              <span className="title">Approved By: </span>+91 9995168885
+              <span className="title">Approved By: </span>
+              {member.approved_by}
             </p>
             <p>
-              <span className="title">Card No: </span>1234567890
+              <span className="title">Card No: </span>
+              {member.card_no}
             </p>
             <p>
-              <span className="title">President: </span>+91 9995168885
+              <span className="title">President: </span>
+              {member.president}
             </p>
             <p>
-              <span className="title">Secretary: </span>1234567890
+              <span className="title">Secretary: </span>
+              {member.secretary}
             </p>
             <p>
-              <span className="title">Expiry: </span>1234567890
+              <span className="title">Expiry: </span>
+              {toDateView(member.expiry)}
             </p>
           </div>
           <div className="action-buttons">
@@ -177,7 +234,7 @@ export default function Member() {
                 size="small"
                 fullWidth
                 style={{ textTransform: "none", fontSize: "1rem" }}
-                onClick={() => navigate("/edit-member/23")}
+                onClick={() => navigate("/edit-member/" + id)}
               >
                 Edit
               </Button>
