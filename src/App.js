@@ -13,6 +13,7 @@ import EditMember from "./pages/members/edit-member/EditMember";
 import Member from "./pages/members/member/Member";
 import ScrollToTop from "./services/scrollToTop";
 import IdCardContainer from "./pages/members/member/id-card/IdCardContainer";
+import ProtectedRoutes from "./services/ProtectedRoutes";
 
 export default function App() {
   return (
@@ -22,54 +23,56 @@ export default function App() {
           <ScrollToTop />
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route
-              path="/"
-              element={
-                <MainLayout>
-                  <AddMember />
-                </MainLayout>
-              }
-            />
-            <Route
-              path="/shakhas"
-              element={
-                <MainLayout>
-                  <Branches />
-                </MainLayout>
-              }
-            />
-            <Route
-              path="/members"
-              element={
-                <MainLayout>
-                  <Members />
-                </MainLayout>
-              }
-            />
-            <Route
-              path="/edit-member/:id"
-              element={
-                <MainLayout>
-                  <EditMember />
-                </MainLayout>
-              }
-            />
-            <Route
-              path="/members/:id"
-              element={
-                <MainLayout>
-                  <Member />
-                </MainLayout>
-              }
-            />
-            <Route
-              path="/id-card"
-              element={
-                <MainLayout>
-                  <IdCardContainer />
-                </MainLayout>
-              }
-            />
+            <Route element={<ProtectedRoutes />}>
+              <Route
+                path="/"
+                element={
+                  <MainLayout>
+                    <AddMember />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/shakhas"
+                element={
+                  <MainLayout>
+                    <Branches />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/members"
+                element={
+                  <MainLayout>
+                    <Members />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/edit-member/:id"
+                element={
+                  <MainLayout>
+                    <EditMember />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/members/:id"
+                element={
+                  <MainLayout>
+                    <Member />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/id-card"
+                element={
+                  <MainLayout>
+                    <IdCardContainer />
+                  </MainLayout>
+                }
+              />
+            </Route>
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

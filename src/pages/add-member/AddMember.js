@@ -62,7 +62,14 @@ export default function AddMember() {
   let onFormSubmit = async (e) => {
     e.preventDefault();
     setSubmitBtn(1);
-    await api.post("members", { ...formData, family_members: familyFormData });
+    try {
+      await api.post("members", {
+        ...formData,
+        family_members: familyFormData,
+      });
+    } catch (e) {
+      console.log(e);
+    }
     window.location.reload();
   };
 
