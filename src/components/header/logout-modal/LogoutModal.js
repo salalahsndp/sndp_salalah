@@ -9,7 +9,7 @@ export default function LogoutModal({ closeModal, show }) {
   const navigate = useNavigate();
 
   let onLogout = () => {
-    localStorage.setItem("isLoggedIn", false);
+    localStorage.removeItem("isLoggedIn");
     navigate("/login");
   };
 
