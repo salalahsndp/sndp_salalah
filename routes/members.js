@@ -31,6 +31,20 @@ async function getMember(req, res, next) {
   next();
 }
 
+// membersRouter.get("/set-code", async (req, res) => {
+//   try {
+//     // await member_codeModel.deleteMany({});
+//     let newCode = new member_codeModel({
+//       code: 3765,
+//       id: 19,
+//     });
+//     const response= await newCode.save();
+//     res.json(response);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //creating one
 membersRouter.post("/", async (req, res) => {
@@ -123,7 +137,9 @@ membersRouter.patch("/:id", getMember, async (req, res) => {
     if (req.body.family_members) {
       console.log(req.body.family_members);
       for (let i = 0; i < res.member.family_members.length; i++) {
-        await family_memberModel.findByIdAndDelete(res.member.family_members[i]);
+        await family_memberModel.findByIdAndDelete(
+          res.member.family_members[i]
+        );
       }
 
       const family_members = [];
