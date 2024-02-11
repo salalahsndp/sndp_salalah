@@ -12,8 +12,12 @@ export default function MemberDeleteModal({ closeModal, show, member }) {
 
   let onDelete = async (id) => {
     setSubmitBtn(true);
-    await api.delete(`members/${id}`);
-    navigate("/members");
+    try {
+      await api.delete(`members/${id}`);
+      navigate("/members");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
