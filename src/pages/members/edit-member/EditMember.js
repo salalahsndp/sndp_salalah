@@ -15,7 +15,7 @@ import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import Button from "@mui/material/Button";
 import api from "../../../api";
-import { toDateView } from "../../../services/toDateView";
+import { toMuiDateView } from "../../../services/toMuiDateView";
 
 export default function EditMember() {
   const { id } = useParams();
@@ -237,7 +237,7 @@ export default function EditMember() {
               fullWidth
               name="DOB"
               onChange={onInputChange}
-              value={toDateView(formData.DOB)}
+              value={toMuiDateView(formData.DOB)}
             />
             <TextField
               InputLabelProps={{
@@ -456,7 +456,7 @@ export default function EditMember() {
                     name="family_member_DOB"
                     type="date"
                     onChange={(e) => handleFamilyChange(index, e)}
-                    value={item.family_member_DOB}
+                    value={toMuiDateView(item.family_member_DOB)}
                   />
                 </div>
               </div>
@@ -501,7 +501,7 @@ export default function EditMember() {
               fullWidth
               name="received_on"
               onChange={onInputChange}
-              value={formData.received_on}
+              value={toMuiDateView(formData.received_on)}
             />
             <TextField
               InputLabelProps={{
@@ -582,7 +582,7 @@ export default function EditMember() {
               type="date"
               name="expiry"
               onChange={onInputChange}
-              value={formData.expiry}
+              value={toMuiDateView(formData.expiry)}
             />
             <TextField
               InputLabelProps={{
