@@ -7,11 +7,11 @@ const family_memberSchema = new mongoose.Schema({
   },
   relation: {
     type: String,
-    required: true,
+    // required: true,
   },
   family_member_DOB: {
     type: Date,
-    required: true,
+    // required: true,
   },
 
   creation_date: {

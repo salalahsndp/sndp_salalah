@@ -1,117 +1,117 @@
 const mongoose = require("mongoose");
 
 const memberSchema = new mongoose.Schema({
-  member_code: {
+  member_code: { //member id
     type: String,
   },
   name: {
     type: String,
-    required: true,
+    // required: true,
   },
   DOB: {
     type: Date,
-    required: true, //requiredfield,otherwise errormessage to user
+    // required: true, //requiredfield,otherwise errormessage to user
   },
   profession: {
     type: String,
-    required: true,
+    // required: true,
   },
   email_id: {
     type: String,
-    required: true,
+    // required: true,
   },
   photo: {
     type: String,
-    // required: true,
+    // // required: true,
   },
   GSM_no: {
     type: String,
-    required: true,
+    // required: true,
   },
   WhatsApp_no: {
     type: String,
-    required: true,
+    // required: true,
   },
   blood_group: {
     type: String,
-    required: true,
+    // required: true,
   },
   family_status: {
     type: String,
-    required: true,
+    // required: true,
   },
   residential_area: {
     type: String,
-    required: true,
+    // required: true,
   },
   passport_no: {
     type: String,
-    required: true,
+    // required: true,
   },
   civil_id_no: {
     type: String,
-    required: true,
+    // required: true,
   },
   address_in_India: {
     type: String,
-    required: true,
+    // required: true,
   },
   tel_no: {
     type: String,
-    required: true,
+    // required: true,
   },
   is_family_residing_in_Oman: {
     type: Boolean,
-    required: true,
+    // required: true,
   },
   application_no: {
     type: String,
-    required: true,
+    // required: true,
   },
   received_on: {
     type: Date,
-    required: true,
+    // required: true,
   },
   submitted_by: {
     type: String,
-    required: true,
+    // required: true,
   },
-  card_no: {
+  shakha_india: {
     type: String,
-    required: true,
+    // required: true,
   },
   checked_by: {
     type: String,
-    required: true,
+    // required: true,
   },
   approved_by: {
     type: String,
-    required: true,
+    // required: true,
   },
   president: {
     type: String,
-    required: true,
+    // required: true,
   },
   secretary: {
     type: String,
-    required: true,
+    // required: true,
   },
   union: {
     type: String,
-    required: true,
+    // required: true,
   },
   district: {
     type: String,
-    required: true,
+    // required: true,
   },
   family_members: [{}],
   shakha: {
     type: String,
-    required: true,
+    // required: true,
   },
   expiry: {
     type: Date,
-    required: true,
+    // required: true,
   },
 
   creation_date: {
