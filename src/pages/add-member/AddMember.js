@@ -18,13 +18,20 @@ import api from "../../api";
 export default function AddMember() {
   useEffect(() => {
     fetchBranches();
+    fetchCode();
   }, []);
 
   const [shakhas, setShakhas] = React.useState([]);
+  const [code, setCode] = React.useState();
 
   let fetchBranches = async () => {
     let { data } = await api.get("shakhas");
     setShakhas(data);
+  };
+
+  let fetchCode = async () => {
+    let { data } = await api.get("members/get-code");
+    setCode(data.code);
   };
 
   const [familyMembersCount, setFamilyMembersCount] = useState(0);
@@ -84,13 +91,18 @@ export default function AddMember() {
           <div className="left">
             <TextField
               id="outlined-basic"
-              label="Application No"
+              label="Member ID"
               variant="outlined"
               size="small"
               fullWidth
               required
-              name="application_no"
-              onChange={onInputChange}
+              name="code"
+              inputProps={{ readOnly: true }}
+              value={code}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              // onChange={onInputChange}
             />
             <TextField
               id="outlined-basic"
@@ -237,7 +249,7 @@ export default function AddMember() {
               size="small"
               type="email"
               fullWidth
-              required
+              // required
               name="email_id"
               onChange={onInputChange}
             />
@@ -257,7 +269,7 @@ export default function AddMember() {
               variant="outlined"
               size="small"
               fullWidth
-              required
+              // required
               name="tel_no"
               onChange={onInputChange}
             />
@@ -290,24 +302,16 @@ export default function AddMember() {
         <p className="sndp-unit">SNDP India Unit Details:</p>
         <div className="form">
           <div className="left">
-            <FormControl fullWidth size="small">
-              <InputLabel id="demo-simple-select-label">Shakha</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                label="Shakha"
-                required
-                name="shakha"
-                onChange={onInputChange}
-              >
-                {shakhas.map((item, index) => {
-                  return (
-                    <MenuItem key={index} value={item.shakha_name}>
-                      {item.shakha_name}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
+            <TextField
+              id="outlined-basic"
+              label="Shakha"
+              variant="outlined"
+              size="small"
+              fullWidth
+              // required
+              name="shakha_india"
+              onChange={onInputChange}
+            />
             <FormControl fullWidth size="small">
               <InputLabel id="demo-simple-select-label">District</InputLabel>
               <Select
@@ -343,7 +347,7 @@ export default function AddMember() {
               variant="outlined"
               size="small"
               fullWidth
-              required
+              // required
               name="union"
               onChange={onInputChange}
             />
@@ -374,7 +378,7 @@ export default function AddMember() {
                     variant="outlined"
                     size="small"
                     fullWidth
-                    required
+                    // required
                     name="relation"
                     onChange={(e) => handleFamilyChange(index, e)}
                   />
@@ -386,7 +390,7 @@ export default function AddMember() {
                     variant="outlined"
                     size="small"
                     fullWidth
-                    required
+                    // required
                     name="family_member_DOB"
                     type="date"
                     InputLabelProps={{
@@ -425,6 +429,24 @@ export default function AddMember() {
         <p className="office-use">For Office Use:</p>
         <div className="form">
           <div className="left">
+            <FormControl fullWidth size="small">
+              <InputLabel id="demo-simple-select-label">Shakha</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                label="Shakha"
+                required
+                name="shakha"
+                onChange={onInputChange}
+              >
+                {shakhas.map((item, index) => {
+                  return (
+                    <MenuItem key={index} value={item.shakha_name}>
+                      {item.shakha_name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
             <TextField
               id="outlined-basic"
               label="Recieved on"
@@ -451,12 +473,12 @@ export default function AddMember() {
             />
             <TextField
               id="outlined-basic"
-              label="Card No"
+              label="Application No"
               variant="outlined"
               size="small"
               fullWidth
               required
-              name="card_no"
+              name="application_no"
               onChange={onInputChange}
             />
             <TextField
@@ -465,7 +487,7 @@ export default function AddMember() {
               variant="outlined"
               size="small"
               fullWidth
-              required
+              // required
               name="president"
               onChange={onInputChange}
             />
@@ -511,7 +533,7 @@ export default function AddMember() {
               variant="outlined"
               size="small"
               fullWidth
-              required
+              // required
               name="secretary"
               onChange={onInputChange}
             />
