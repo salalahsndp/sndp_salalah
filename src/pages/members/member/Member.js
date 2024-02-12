@@ -73,7 +73,7 @@ export default function Member() {
     <Fragment>
       <div className="member">
         <h2>
-          Member - <span className="member-code">{member.member_code}</span>
+          Member - <span className="member-code">{member?.member_code}</span>
         </h2>
         <div className="details">
           <div className="print-icon">
@@ -91,78 +91,78 @@ export default function Member() {
           <div className="row">
             <p>
               <span className="title">Application No: </span>
-              {member.application_no}
+              {member?.application_no}
             </p>
             <p>
               <span className="title">Name: </span>
-              {member.name}
+              {member?.name}
             </p>
             <p>
               <span className="title">Profession: </span>
-              {member.profession}
+              {member?.profession}
             </p>
             <p>
               <span className="title">DOB: </span>
-              {toDateView(member.DOB)}
+              {toDateView(member?.DOB)}
             </p>
             <p>
               <span className="title">GSM No: </span>
-              {member.GSM_no}
+              {member?.GSM_no}
             </p>
             <p>
               <span className="title">Whatsapp: </span>
-              {member.WhatsApp_no}
+              {member?.WhatsApp_no}
             </p>
             <p>
               <span className="title">Blood Group: </span>
-              {member.blood_group}
+              {member?.blood_group}
             </p>
             <p>
               <span className="title">Marital Status: </span>
-              {member.family_status}
+              {member?.family_status}
             </p>
             <p>
               <span className="title">Email ID: </span>
-              {member.email_id}
+              {member?.email_id}
             </p>
             <p>
               <span className="title">Residential Area: </span>
-              {member.residential_area}
+              {member?.residential_area}
             </p>
             <p>
               <span className="title">Passport No: </span>
-              {member.passport_no}
+              {member?.passport_no}
             </p>
             <p>
               <span className="title">Civil ID No: </span>
-              {member.civil_id_no}
+              {member?.civil_id_no}
             </p>
             <p style={{ whiteSpace: "pre-line" }}>
               <span className="title">Address in India: </span>
-              {member.address_in_India}
+              {member?.address_in_India}
             </p>
             <p>
               <span className="title">Telephone No(India): </span>
-              {member.tel_no}
+              {member?.tel_no}
             </p>
             <p>
               <span className="title">Family residing in Oman: </span>
-              {member.is_family_residing_in_Oman ? "Yes" : "No"}
+              {member?.is_family_residing_in_Oman ? "Yes" : "No"}
             </p>
           </div>
           <h3 className="sndp-title">SNDP India Unit Details</h3>
           <div className="row">
             <p>
               <span className="title">Shakha: </span>
-              {member.shakha}
+              {member?.shakha}
             </p>
             <p>
               <span className="title">Union: </span>
-              {member.union}
+              {member?.union}
             </p>
             <p>
               <span className="title">District: </span>
-              {member.district}
+              {member?.district}
             </p>
           </div>
           <h3 className="family-title">Family Members</h3>
@@ -201,35 +201,35 @@ export default function Member() {
           <div className="row">
             <p>
               <span className="title">Recieved On: </span>
-              {toDateView(member.received_on)}
+              {toDateView(member?.received_on)}
             </p>
             <p>
               <span className="title">Submitted By: </span>
-              {member.submitted_by}
+              {member?.submitted_by}
             </p>
             <p>
               <span className="title">Checked By: </span>
-              {member.checked_by}
+              {member?.checked_by}
             </p>
             <p>
               <span className="title">Approved By: </span>
-              {member.approved_by}
+              {member?.approved_by}
             </p>
             <p>
               <span className="title">Card No: </span>
-              {member.card_no}
+              {member?.card_no}
             </p>
             <p>
               <span className="title">President: </span>
-              {member.president}
+              {member?.president}
             </p>
             <p>
               <span className="title">Secretary: </span>
-              {member.secretary}
+              {member?.secretary}
             </p>
             <p>
               <span className="title">Expiry: </span>
-              {toDateView(member.expiry)}
+              {toDateView(member?.expiry)}
             </p>
           </div>
           <div className="action-buttons">
