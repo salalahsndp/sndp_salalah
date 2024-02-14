@@ -63,9 +63,9 @@ membersRouter.post("/", async (req, res) => {
     new_member.family_members = [];
     let member_code = await member_codeModel.findOne({ id: 19 });
     new_member.member_code = member_code.code;
-    member_codeModel.findOneAndUpdate(
+    await member_codeModel.findOneAndUpdate(
       { id: 19 },
-      { member_code: member_code.code + 1 }
+      { code: member_code.code + 1 }
     );
     //if we create a var and save the new member to it ,it will display the "family_members" field as it is in the payload (with all the details)
     for (const familyMemberData of req.body.family_members) {
