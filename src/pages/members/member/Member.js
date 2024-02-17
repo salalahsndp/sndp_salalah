@@ -183,19 +183,19 @@ export default function Member() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {family.map((item, index) => (
+                  {family?.map((item, index) => (
                     <StyledTableRow
                       key={index}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        {item.family_member_name}
+                        {item?.family_member_name}
                       </TableCell>
                       <TableCell component="th" scope="row">
-                        {item.relation}
+                        {item?.relation}
                       </TableCell>
                       <TableCell component="th" scope="row">
-                        {toDateView(item.family_member_DOB)}
+                        {toDateView(item?.family_member_DOB)}
                       </TableCell>
                     </StyledTableRow>
                   ))}
