@@ -392,7 +392,7 @@ export default function AddMember() {
                   />
                 </div>
                 <div className="item">
-                  <TextField
+                  {/* <TextField
                     id="outlined-basic"
                     label="Relation"
                     variant="outlined"
@@ -401,7 +401,7 @@ export default function AddMember() {
                     // required
                     name="relation"
                     onChange={(e) => handleFamilyChange(index, e)}
-                  />
+                  /> */}
                   <FormControl fullWidth size="small">
                     <InputLabel id="demo-simple-select-label">
                       Relation
