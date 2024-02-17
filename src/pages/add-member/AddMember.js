@@ -69,6 +69,20 @@ export default function AddMember() {
   };
   let onFormSubmit = async (e) => {
     e.preventDefault();
+    if (file) {
+      const maxSizeMB = 1;
+      const maxSizeBytes = maxSizeMB * 1024 * 1024;
+      // console.log(file.size);
+      if (file.size > maxSizeBytes) {
+        window.alert(`Error: Photo size exceeds ${maxSizeMB} MB`);
+        return;
+      }
+      if (/\s/.test(file.name)) {
+        window.alert(`Error: Photo name contains whitespace `);
+        return;
+      }
+    }
+
     setSubmitBtn(1);
     const maxSizeMB = 1; // Set your maximum size limit in megabytes
     const maxSizeBytes = maxSizeMB * 1024 * 1024;
