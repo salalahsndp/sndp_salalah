@@ -514,7 +514,7 @@ export default function EditMember() {
                     variant="outlined"
                     size="small"
                     fullWidth
-                    required
+                    // required
                     name="family_member_DOB"
                     type="date"
                     onChange={(e) => handleFamilyChange(index, e)}

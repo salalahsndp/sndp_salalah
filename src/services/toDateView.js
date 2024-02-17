@@ -1,4 +1,8 @@
 export let toDateView = (dateParam) => {
+  if (!dateParam || !dateParam.length) {
+    return undefined;
+  }
+
   let date = new Date(dateParam);
   let dd = date.getDate();
   let mm = date.getMonth() + 1;
