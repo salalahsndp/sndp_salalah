@@ -450,7 +450,7 @@ export default function EditMember() {
 
         <p className="add-family">Edit Family Members:</p>
         <div className="form-family">
-          {familyFormData.map((item, index) => {
+          {familyFormData?.map((item, index) => {
             return (
               <div className="row" key={index}>
                 <div className="item">
@@ -466,7 +466,7 @@ export default function EditMember() {
                     required
                     name="family_member_name"
                     onChange={(e) => handleFamilyChange(index, e)}
-                    value={item.family_member_name}
+                    value={item?.family_member_name}
                   />
                 </div>
                 <div className="item">
@@ -492,6 +492,7 @@ export default function EditMember() {
                       labelId="demo-simple-select-label"
                       label="Relation"
                       // required
+                      value={item?.family_status}
                       name="relation"
                       onChange={(e) => handleFamilyChange(index, e)}
                     >
@@ -517,7 +518,7 @@ export default function EditMember() {
                     name="family_member_DOB"
                     type="date"
                     onChange={(e) => handleFamilyChange(index, e)}
-                    value={toMuiDateView(item.family_member_DOB)}
+                    value={toMuiDateView(item?.family_member_DOB)}
                   />
                 </div>
               </div>
