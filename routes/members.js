@@ -96,7 +96,9 @@ membersRouter.get("/", async (req, res) => {
         .sort({ name: "asc" });
       res.json(all_members_data);
     } else {
-      const all_members_data = await memberModel.find().sort({ name: "asc" });
+      const all_members_data = await memberModel
+        .find()
+        .sort({ member_code: -1 });
       res.json(all_members_data); //filenameofcustommodelmodelname
     }
   } catch (err) {
