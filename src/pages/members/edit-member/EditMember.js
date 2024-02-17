@@ -475,7 +475,7 @@ export default function EditMember() {
                     <Select
                       labelId="demo-simple-select-label"
                       label="Relation"
-                      required
+                      // required
                       name="relation"
                       onChange={(e) => handleFamilyChange(index, e)}
                     >
