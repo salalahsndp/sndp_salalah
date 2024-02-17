@@ -402,6 +402,24 @@ export default function AddMember() {
                     name="relation"
                     onChange={(e) => handleFamilyChange(index, e)}
                   />
+                  <FormControl fullWidth size="small">
+                    <InputLabel id="demo-simple-select-label">
+                      Relation
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      label="Relation"
+                      required
+                      name="relation"
+                      onChange={(e) => handleFamilyChange(index, e)}
+                    >
+                      <MenuItem value={"Son"}>Son</MenuItem>
+                      <MenuItem value={"Daughter"}>Daughter</MenuItem>
+                      <MenuItem value={"Spouse"}>Spouse</MenuItem>
+                      <MenuItem value={"Father"}>Father</MenuItem>
+                      <MenuItem value={"Mother"}>Mother</MenuItem>
+                    </Select>
+                  </FormControl>
                 </div>
                 <div className="item">
                   <TextField
