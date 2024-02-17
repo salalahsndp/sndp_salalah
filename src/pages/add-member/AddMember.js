@@ -71,19 +71,26 @@ export default function AddMember() {
     e.preventDefault();
     setSubmitBtn(1);
     try {
-      const imgFormData = new FormData();
-      imgFormData.append("file", file);
-      const { data } = await api.post("file/upload", imgFormData);
-      // console.log(res);
-      await api.post("members", {
-        ...formData,
-        family_members: familyFormData,
-        photo: data.location,
-      });
+      if (file) {
+        const imgFormData = new FormData();
+        imgFormData.append("file", file);
+        const { data } = await api.post("file/upload", imgFormData);
+        // console.log(res);
+        await api.post("members", {
+          ...formData,
+          family_members: familyFormData,
+          photo: data.location,
+        });
+      } else {
+        await api.post("members", {
+          ...formData,
+          family_members: familyFormData,
+        });
+      }
     } catch (e) {
       console.log(e);
     }
-    // window.location.reload();
+    window.location.reload();
   };
 
   const handleFileChange = (e) => {

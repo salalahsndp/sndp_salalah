@@ -28,6 +28,7 @@ export default function EditMember() {
   const [member, setMember] = React.useState({});
   const [family, setFamily] = React.useState([]);
   const [shakhas, setShakhas] = React.useState([]);
+  const [file, setFile] = useState(null);
 
   let fetcMember = async () => {
     let { data } = await api.get("members/" + id);
@@ -83,11 +84,37 @@ export default function EditMember() {
   let onFormSubmit = async (e) => {
     e.preventDefault();
     setSubmitBtn(1);
-    await api.patch(`members/${id}`, {
-      ...formData,
-      family_members: familyFormData,
-    });
+    try {
+      if (file) {
+        if (member.photo && member.photo.includes("http")) {
+          await api.post("file/delete", { url: member.photo });
+        }
+        const imgFormData = new FormData();
+        imgFormData.append("file", file);
+        const { data } = await api.post("file/upload", imgFormData);
+        // console.log(res);
+        await api.patch(`members/${id}`, {
+          ...formData,
+          family_members: familyFormData,
+          photo: data.location,
+        });
+      } else {
+        await api.patch(`members/${id}`, {
+          ...formData,
+          family_members: familyFormData,
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
     window.location.reload();
+  };
+
+  const handleFileChange = (e) => {
+    // Uploaded file
+    const file = e.target.files[0];
+    // Changing file state
+    setFile(file);
   };
 
   if (!formData.name) return;
@@ -193,7 +220,7 @@ export default function EditMember() {
               fullWidth
               //
               name="photo"
-              onChange={onInputChange}
+              onChange={handleFileChange}
             />
             <TextField
               InputLabelProps={{

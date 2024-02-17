@@ -17,6 +17,7 @@ import { useReactToPrint } from "react-to-print";
 import { IdCard } from "./id-card/IdCard";
 import api from "../../../api";
 import { toDateView } from "../../../services/toDateView";
+import userIcon from "../../../assets/user.png";
 
 export default function Member() {
   const { id } = useParams();
@@ -49,7 +50,6 @@ export default function Member() {
       fontSize: 14,
     },
   }));
-
 
   let [deleteModal, setDeleteModal] = useState(false);
 
@@ -87,7 +87,13 @@ export default function Member() {
             <IdCard ref={componentRef} />
           </div>
 
-          <div className="photo"></div>
+          <div className="photo">
+            {member.photo && member.photo.includes("http") ? (
+              <img src={member.photo} alt="User Image" />
+            ) : (
+              <img src={userIcon} alt="User Image" />
+            )}
+          </div>
           <div className="row">
             <p>
               <span className="title">Application No: </span>
