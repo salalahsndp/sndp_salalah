@@ -146,7 +146,7 @@ membersRouter.patch("/:id", getMember, async (req, res) => {
   try {
     // Update member fields with values from req.body
     if (req.body.family_members) {
-      console.log(req.body.family_members);
+      // console.log(req.body.family_members);
       for (let i = 0; i < res.member.family_members.length; i++) {
         await family_memberModel.findByIdAndDelete(
           res.member.family_members[i]
@@ -162,11 +162,11 @@ membersRouter.patch("/:id", getMember, async (req, res) => {
         });
         await familyMember.save();
         family_members.push(familyMember._id);
-        console.log(family_members);
+        // console.log(family_members);
       }
 
       req.body.family_members = family_members;
-      console.log(req.body.family_members);
+      // console.log(req.body.family_members);
     }
 
     Object.assign(res.member, req.body);

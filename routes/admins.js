@@ -27,7 +27,7 @@ async function getadmin(req, res, next) {
 adminsRouter.post("/", async (req, res) => {
   try {
     const adminData = new adminModel(req.body);
-    console.log("Received Admin Data:", adminData);
+    // console.log("Received Admin Data:", adminData);
     await adminData.save();
     res.json(adminData);
   } catch (err) {
