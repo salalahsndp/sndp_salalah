@@ -149,26 +149,13 @@ export default function EditMember() {
                 shrink: true,
               }}
               id="outlined-basic"
-              label="Application No"
+              label="Name"
               variant="outlined"
               size="small"
               fullWidth
-              name="application_no"
+              name="name"
               onChange={onInputChange}
-              value={formData.application_no}
-            />
-            <TextField
-              InputLabelProps={{
-                shrink: true,
-              }}
-              id="outlined-basic"
-              label="Profession"
-              variant="outlined"
-              size="small"
-              fullWidth
-              name="profession"
-              onChange={onInputChange}
-              value={formData.profession}
+              value={formData.name}
             />
             <TextField
               InputLabelProps={{
@@ -260,13 +247,13 @@ export default function EditMember() {
                 shrink: true,
               }}
               id="outlined-basic"
-              label="Name"
+              label="Profession"
               variant="outlined"
               size="small"
               fullWidth
-              name="name"
+              name="profession"
               onChange={onInputChange}
-              value={formData.name}
+              value={formData.profession}
             />
             <TextField
               InputLabelProps={{
@@ -583,13 +570,13 @@ export default function EditMember() {
                 shrink: true,
               }}
               id="outlined-basic"
-              label="Card No"
+              label="Application No"
               variant="outlined"
               size="small"
               fullWidth
-              name="card_no"
+              name="application_no"
               onChange={onInputChange}
-              value={formData.card_no}
+              value={formData.application_no}
             />
             <TextField
               InputLabelProps={{

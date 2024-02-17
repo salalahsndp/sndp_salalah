@@ -96,10 +96,6 @@ export default function Member() {
           </div>
           <div className="row">
             <p>
-              <span className="title">Application No: </span>
-              {member?.application_no}
-            </p>
-            <p>
               <span className="title">Name: </span>
               {member?.name}
             </p>
@@ -222,8 +218,8 @@ export default function Member() {
               {member?.approved_by}
             </p>
             <p>
-              <span className="title">Card No: </span>
-              {member?.card_no}
+              <span className="title">Application No: </span>
+              {member?.application_no}
             </p>
             <p>
               <span className="title">President: </span>
