@@ -70,6 +70,17 @@ export default function AddMember() {
   let onFormSubmit = async (e) => {
     e.preventDefault();
     setSubmitBtn(1);
+    const maxSizeMB = 1; // Set your maximum size limit in megabytes
+    const maxSizeBytes = maxSizeMB * 1024 * 1024;
+
+    // Check if the file size exceeds the limit
+    if (file) {
+      if (file.size > maxSizeBytes) {
+        alert(`Error: Photo size exceeds ${maxSizeMB} MB`);
+        return;
+      }
+    }
+
     try {
       if (file) {
         const imgFormData = new FormData();

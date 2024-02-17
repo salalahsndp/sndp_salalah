@@ -84,6 +84,20 @@ export default function EditMember() {
   let onFormSubmit = async (e) => {
     e.preventDefault();
     setSubmitBtn(1);
+    const maxSizeMB = 1; // Set your maximum size limit in megabytes
+    const maxSizeBytes = maxSizeMB * 1024 * 1024;
+
+    // Check if the file size exceeds the limit
+    if (file) {
+      if (file.size > maxSizeBytes) {
+        alert(`Error: Photo size exceeds ${maxSizeMB} MB`);
+        return;
+      }
+      if (/\s/.test(file.name)) {
+        alert(`Error: Photo name contains whitespace `);
+        return;
+      }
+    }
     try {
       if (file) {
         if (member.photo && member.photo.includes("http")) {
