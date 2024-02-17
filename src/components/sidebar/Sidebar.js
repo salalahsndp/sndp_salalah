@@ -14,7 +14,7 @@ export default function Sidebar() {
   const { pathname } = useLocation();
   useEffect(() => {
     setActiveTab(pathConfig[pathname]);
-    console.log(pathname);
+    // console.log(pathname);
   }, [pathname]);
 
   return (

@@ -23,6 +23,7 @@ export default function AddMember() {
 
   const [shakhas, setShakhas] = React.useState([]);
   const [code, setCode] = React.useState();
+  const [file, setFile] = useState(null);
 
   let fetchBranches = async () => {
     let { data } = await api.get("shakhas");
@@ -70,14 +71,26 @@ export default function AddMember() {
     e.preventDefault();
     setSubmitBtn(1);
     try {
+      const imgFormData = new FormData();
+      imgFormData.append("file", file);
+      const { data } = await api.post("file/upload", imgFormData);
+      // console.log(res);
       await api.post("members", {
         ...formData,
         family_members: familyFormData,
+        photo: data.location,
       });
     } catch (e) {
       console.log(e);
     }
-    window.location.reload();
+    // window.location.reload();
+  };
+
+  const handleFileChange = (e) => {
+    // Uploaded file
+    const file = e.target.files[0];
+    // Changing file state
+    setFile(file);
   };
 
   return (
@@ -171,7 +184,7 @@ export default function AddMember() {
               fullWidth
               // required
               name="photo"
-              onChange={onInputChange}
+              onChange={handleFileChange}
             />
             <TextField
               id="outlined-basic"
