@@ -13,6 +13,9 @@ export default function MemberDeleteModal({ closeModal, show, member }) {
   let onDelete = async (id) => {
     setSubmitBtn(true);
     try {
+      if (member.photo && member.photo.includes("http")) {
+        await api.post("file/delete", { url: member.photo });
+      }
       await api.delete(`members/${id}`);
       navigate("/members");
     } catch (e) {
