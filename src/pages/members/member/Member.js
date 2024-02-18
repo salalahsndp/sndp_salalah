@@ -84,7 +84,7 @@ export default function Member() {
           </div>
 
           <div style={{ display: "none" }}>
-            <IdCard ref={componentRef} />
+            <IdCard member={member} family={family} ref={componentRef} />
           </div>
 
           <div className="photo">
