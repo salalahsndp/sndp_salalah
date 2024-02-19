@@ -134,7 +134,11 @@ export default function Members() {
         <div className="utilities">
           <div className="search">
             <PersonSearchIcon
-              style={{ color: "darkblue", cursor: "pointer" }}
+              style={{
+                color: "darkblue",
+                cursor: "pointer",
+                fontSize: "1.75rem",
+              }}
               onClick={onSearchClik}
             />
           </div>
