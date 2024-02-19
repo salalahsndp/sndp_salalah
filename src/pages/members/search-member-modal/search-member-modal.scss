@@ -1,0 +1,13 @@
+.search-member-modal {
+  .buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .form {
+    margin-top: 6%;
+    width: 300px;
+  }
+}

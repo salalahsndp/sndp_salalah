@@ -59,8 +59,8 @@ export const IdCard = React.forwardRef((props, ref) => {
             </div>
             <div className="right">
               <h4 className="title">Family Members:</h4>
-              {family.map((item) => {
-                return <p>{item.family_member_name}</p>;
+              {family.map((item, index) => {
+                return <p key={index}>{item.family_member_name}</p>;
               })}
             </div>
           </div>
