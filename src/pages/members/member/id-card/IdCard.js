@@ -3,7 +3,8 @@ import "./id-card.scss";
 import logo from "../../../../assets/logo.png";
 import userIcon from "../../../../assets/user.png";
 import { toDateView } from "../../../../services/toDateView";
-
+// import { ReactComponent as WavyImg } from "../../../../assets/id/curve.svg";
+import MySVG from "../../../../assets/id/circle-heat-svgrepo-com.svg";
 export const IdCard = React.forwardRef((props, ref) => {
   let { member, family } = props;
 
@@ -11,7 +12,7 @@ export const IdCard = React.forwardRef((props, ref) => {
 
   return (
     <div ref={ref} className="id-card">
-      <div className="front">
+      {/* <div className="front">
         <div className="top">
           <div className="logo">
             <img src={logo} alt="" />
@@ -65,10 +66,8 @@ export const IdCard = React.forwardRef((props, ref) => {
             </div>
           </div>
         </div>
-        {/* <div className="footer">
-          <p>salalahsndp@gmail.com</p>
-        </div> */}
-      </div>
+      </div> */}
+      <div className="front">{/* <img src={MySVG} /> */}</div>
     </div>
   );
 });

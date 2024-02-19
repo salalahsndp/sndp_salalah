@@ -19,6 +19,7 @@ import { exportToCSV } from "../../services/exportToExcel";
 import api from "../../api";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import SearchMemberModal from "./search-member-modal/SearchMemberModal";
+import { toDateView } from "../../services/toDateView";
 
 export default function Members() {
   const navigate = useNavigate();
@@ -126,6 +127,41 @@ export default function Members() {
     setSearchedMembers(filteredMembers);
   };
 
+  let onExport = (e) => {
+    let excelMembers;
+    excelMembers = filteredMembers.map((item) => {
+      return {
+        MEMBER_ID: item.member_code,
+        NAME: item.name,
+        PROFESSION: item.profession,
+        DOB: toDateView(item.DOB),
+        GSM_NO: item.GSM_no,
+        WHATSAPP: item.WhatsApp_no,
+        EMAIL_ID: item.email_id,
+        ADDRESS_IN_INDIA: item.address_in_India,
+        TELEPHONE_NO: item.tel_no,
+        BLOOD_GROUP: item.blood_group,
+        MARITAL_STATUS: item.family_status,
+        RESIDENTIAL_AREA: item.residential_area,
+        PASSPORT_NO: item.passport_no,
+        CIVIL_ID_NO: item.civil_id_no,
+        FAMILY_RESIDING_IN_OMAN: item.is_family_residing_in_Oman,
+        SHAKHA: item.shakha,
+        UNION: item.union,
+        DISTRICT: item.district,
+        RECEIVED_ON: toDateView(item.received_on),
+        SUBMITTED_BY: item.submitted_by,
+        CHECKED_BY: item.checked_by,
+        APPROVED_BY: item.approved_by,
+        APPLICATION_NO: item.application_no,
+        PRESIDENT: item.president,
+        SECRETARY: item.secretary,
+        EXPIRY: toDateView(item.expiry),
+      };
+    });
+    exportToCSV(excelMembers, "members");
+  };
+
   return (
     <>
       <div className="members">
@@ -165,7 +201,7 @@ export default function Members() {
           <div className="export">
             <PrintIcon
               style={{ color: "darkblue", cursor: "pointer" }}
-              onClick={(e) => exportToCSV(filteredMembers, "members")}
+              onClick={onExport}
             />
           </div>
         </div>
@@ -177,11 +213,10 @@ export default function Members() {
                 <TableRow>
                   <StyledTableCell>Code</StyledTableCell>
                   <StyledTableCell>Name</StyledTableCell>
-                  <StyledTableCell>Profession</StyledTableCell>
                   <StyledTableCell>Whatsapp</StyledTableCell>
                   <StyledTableCell>Email</StyledTableCell>
                   <StyledTableCell>Marital Status</StyledTableCell>
-                  <StyledTableCell>Blood Group</StyledTableCell>
+                  <StyledTableCell>Expiry</StyledTableCell>
                   <StyledTableCell>Shakha</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -199,9 +234,6 @@ export default function Members() {
                       {item.name}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {item.profession}
-                    </TableCell>
-                    <TableCell component="th" scope="row">
                       {item.WhatsApp_no}
                     </TableCell>
                     <TableCell component="th" scope="row">
@@ -211,7 +243,7 @@ export default function Members() {
                       {item.family_status}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {item.blood_group}
+                      {toDateView(item.expiry)}
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {item.shakha}
