@@ -31,19 +31,19 @@ async function getMember(req, res, next) {
   next();
 }
 
-membersRouter.get("/set-code", async (req, res) => {
-  try {
-    await member_codeModel.deleteMany({});
-    let newCode = new member_codeModel({
-      code: 1001,
-      id: 19,
-    });
-    const response = await newCode.save();
-    res.json(response);
-  } catch (e) {
-    console.log(e);
-  }
-});
+// membersRouter.get("/set-code", async (req, res) => {
+//   try {
+//     await member_codeModel.deleteMany({});
+//     let newCode = new member_codeModel({
+//       code: 1001,
+//       id: 19,
+//     });
+//     const response = await newCode.save();
+//     res.json(response);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
 
 membersRouter.get("/get-code", async (req, res) => {
   try {
