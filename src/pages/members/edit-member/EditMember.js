@@ -372,24 +372,17 @@ export default function EditMember() {
         <p className="sndp-unit">SNDP India Unit Details:</p>
         <div className="form">
           <div className="left">
-            <FormControl fullWidth size="small">
-              <InputLabel id="demo-simple-select-label">Shakha</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                label="Shakha"
-                name="shakha"
-                onChange={onInputChange}
-                value={formData.shakha}
-              >
-                {shakhas.map((item, index) => {
-                  return (
-                    <MenuItem key={index} value={item.shakha_name}>
-                      {item.shakha_name}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
+            <TextField
+              id="outlined-basic"
+              label="Shakha"
+              variant="outlined"
+              size="small"
+              fullWidth
+              // required
+              name="shakha_india"
+              value={formData.shakha_india}
+              onChange={onInputChange}
+            />
             <FormControl fullWidth size="small">
               <InputLabel id="demo-simple-select-label">District</InputLabel>
               <Select
@@ -538,6 +531,24 @@ export default function EditMember() {
         <p className="office-use">For Office Use:</p>
         <div className="form">
           <div className="left">
+            <FormControl fullWidth size="small">
+              <InputLabel id="demo-simple-select-label">Shakha</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                label="Shakha"
+                name="shakha"
+                onChange={onInputChange}
+                value={formData.shakha}
+              >
+                {shakhas.map((item, index) => {
+                  return (
+                    <MenuItem key={index} value={item.shakha_name}>
+                      {item.shakha_name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
             <TextField
               InputLabelProps={{
                 shrink: true,
