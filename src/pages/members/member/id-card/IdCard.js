@@ -47,7 +47,7 @@ export const IdCard = React.forwardRef((props, ref) => {
 
         <div className="footer">
           <p className="expiry-date">
-            Valid Upto {toDateView(member.member_code)}
+            Valid Upto {toDateView(member.expiry)}
           </p>
         </div>
 
@@ -76,7 +76,7 @@ export const IdCard = React.forwardRef((props, ref) => {
             );
           })}
           <p className="dob">DOB: {toDateView(member.DOB)}</p>
-          <p className="blood">Blood: {member.blood_group}ve</p>
+          <p className="blood">Blood: {member.blood_group}</p>
           <p className="phone">Phone: {member.WhatsApp_no}</p>
         </div>
 

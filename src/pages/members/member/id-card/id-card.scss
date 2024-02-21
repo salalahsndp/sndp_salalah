@@ -20,6 +20,7 @@
 
     .title {
       h2 {
+        text-align: center;
         font-weight: 600;
         // text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         line-height: 14px;
@@ -58,14 +59,16 @@
 
     .photo {
       position: relative;
-      left: 45px;
+      left: 18px;
       top: 50px;
+      text-align: center;
 
       img {
         border-radius: 100%;
         border: 4px solid #fdcd0cff;
         width: 90px;
         height: 90px;
+        margin-bottom: 20px;
       }
     }
 
@@ -163,10 +166,10 @@
     height: 3.375in;
     margin: 1rem;
 
-    .back-info {
+    .family-info {
       position: relative;
       text-align: center;
-      top: 120px;
+      top: 150px;
       z-index: 200;
       letter-spacing: -0.01rem;
       padding-left: 40.795px;
@@ -190,19 +193,18 @@
       .phone {
         margin-top: 11%;
       }
+    }
 
-      .dob,
-      .blood,
-      .phone {
-        font-size: 9px;
-        position: absolute;
-        padding-left: 20%;
-        padding-top: 30%;
-      }
+    .back-details {
+      font-size: 9px;
+      position: absolute;
+      z-index: 500;
+      bottom: 40px;
+      right: 30px;
 
       .dob,
       .blood {
-        margin-bottom: 10px;
+        margin-bottom: 3px;
       }
     }
 
