@@ -14,10 +14,11 @@ import PrintIcon from "@mui/icons-material/Print";
 import Button from "@mui/material/Button";
 import MemberDeleteModal from "./member-delete-dialog/MemberDeleteModal";
 import { useReactToPrint } from "react-to-print";
-import { IdCard } from "./id-card/IdCard";
+import { IdCardFront } from "./id-card/IdCardFront";
 import api from "../../../api";
 import { toDateView } from "../../../services/toDateView";
 import userIcon from "../../../assets/user.png";
+import { IdCardBack } from "./id-card/IdCardBack";
 
 export default function Member() {
   const { id } = useParams();
@@ -71,6 +72,14 @@ export default function Member() {
 
   return (
     <Fragment>
+      <div>
+        <div className="id-card-front">
+          <IdCardFront member={member} family={family} />
+        </div>
+        <div className="id-card-back">
+          <IdCardBack member={member} family={family} />
+        </div>
+      </div>
       <div className="member">
         <h2>
           Member - <span className="member-code">{member?.member_code}</span>
@@ -83,15 +92,11 @@ export default function Member() {
             />
           </div>
 
-          <div style={{ display: "none" }}>
-            <IdCard member={member} family={family} ref={componentRef} />
-          </div>
-
           <div className="photo">
             {member.photo && member.photo.includes("http") ? (
-              <img src={member.photo} alt="User Image" />
+              <img src={member.photo} alt="User" />
             ) : (
-              <img src={userIcon} alt="User Image" />
+              <img src={userIcon} alt="User" />
             )}
           </div>
           <div className="row">

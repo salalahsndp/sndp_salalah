@@ -1,11 +1,13 @@
 import React from "react";
 import "./id-card.scss";
-import { IdCard } from "./IdCard";
+import { IdCardFront } from "./IdCardFront";
+import { IdCardBack } from "./IdCardBack";
 
 export default function IdCardContainer() {
   return (
     <div className="id-card-container">
-      <IdCard />
+      <IdCardFront />
+      <IdCardBack />
     </div>
   );
 }
