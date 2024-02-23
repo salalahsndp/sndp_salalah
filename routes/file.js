@@ -30,6 +30,23 @@ async function uploadFile(file) {
   return data.Location; // returns the url location
 }
 
+fileRouter.get("/photo/:file", async (req, res) => {
+  const params = {
+    Bucket: process.env.REACT_APP_BUCKET_NAME, // bucket you want to upload to
+    Key: req.params.file,
+  };
+  s3.getObject(params, (err, data) => {
+    if (err) {
+      console.error("Error downloading image:", err);
+      return;
+    }
+
+    // Convert the image data to base64
+    const base64Image = Buffer.from(data.Body).toString("base64");
+    res.send(base64Image);
+  });
+});
+
 fileRouter.post("/upload", async (req, res) => {
   // the file when inserted from form-data comes in req.files.file
   const fileLocation = await uploadFile(req.files.file);
