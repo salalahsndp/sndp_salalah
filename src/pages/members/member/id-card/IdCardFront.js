@@ -6,13 +6,13 @@ import idlogo from "../../../../assets/id-card/id-logo.png";
 import userIcon from "../../../../assets/user.png";
 import { toDateView } from "../../../../services/toDateView";
 
-export const IdCardFront = (props) => {
+export const IdCardFront = React.forwardRef((props, ref) => {
   let { member } = props;
 
   if (!member) return;
 
   return (
-    <div className="front-id">
+    <div ref={ref} className="front-id">
       <div className="title">
         <h2>SNDP YOGAM, OMAN</h2>
         <h2>SALALAH UNION</h2>
@@ -31,7 +31,7 @@ export const IdCardFront = (props) => {
 
       <div className="photo">
         {member.photo && member.photo.includes("http") ? (
-          <img src={member.photo} alt="User" />
+          <img src={`data:image/jpeg;base64,${props.img}`} alt="User" />
         ) : (
           <img src={userIcon} alt="User" />
         )}
@@ -58,4 +58,4 @@ export const IdCardFront = (props) => {
       </div>
     </div>
   );
-};
+});

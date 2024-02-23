@@ -5,13 +5,13 @@ import idBack from "../../../../assets/id-card/id-back.png";
 import idlogo from "../../../../assets/id-card/id-logo.png";
 import { toDateView } from "../../../../services/toDateView";
 
-export const IdCardBack = (props) => {
+export const IdCardBack = React.forwardRef((props, ref) => {
   let { member, family } = props;
 
   if (!member) return;
 
   return (
-    <div className="back-id">
+    <div ref={ref} className="back-id">
       <div className="family-info">
         <h3 className="family-title">FAMILY MEMBERS</h3>
         {family.map((item) => {
@@ -42,4 +42,4 @@ export const IdCardBack = (props) => {
       </div>
     </div>
   );
-};
+});

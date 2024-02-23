@@ -1,3 +1,11 @@
+.hide {
+  // visibility: hidden;
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  column-gap: 2rem;
+}
+
 .member {
   h2 {
     font-weight: 500;

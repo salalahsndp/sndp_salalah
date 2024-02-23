@@ -13,12 +13,14 @@ import Paper from "@mui/material/Paper";
 import PrintIcon from "@mui/icons-material/Print";
 import Button from "@mui/material/Button";
 import MemberDeleteModal from "./member-delete-dialog/MemberDeleteModal";
-import { useReactToPrint } from "react-to-print";
 import { IdCardFront } from "./id-card/IdCardFront";
 import api from "../../../api";
 import { toDateView } from "../../../services/toDateView";
 import userIcon from "../../../assets/user.png";
 import { IdCardBack } from "./id-card/IdCardBack";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import extractFilenameFromUrl from "../../../services/getFileNameFromUrl";
 
 export default function Member() {
   const { id } = useParams();
@@ -29,11 +31,28 @@ export default function Member() {
 
   const [member, setMember] = React.useState({});
   const [family, setFamily] = React.useState([]);
+  const [img, setImg] = React.useState(null);
 
   let fetchMember = async () => {
     let { data } = await api.get("members/" + id);
     setMember(data.member);
     setFamily(data.familyMemberdetails);
+
+    let photo;
+    if (data.member.photo && data.member.photo.includes("http")) {
+      photo = extractFilenameFromUrl(data.member.photo);
+    } else {
+      return;
+    }
+
+    try {
+      // Fetch the image from S3
+      const { data } = await api.get("file/photo/" + photo);
+      setImg(data);
+      // console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -57,10 +76,49 @@ export default function Member() {
   const navigate = useNavigate();
 
   const componentRef = useRef();
+  const componentRef2 = useRef();
 
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
+  const handlePrint = async () => {
+    const input = componentRef.current;
+    const inputRect = input.getBoundingClientRect(); // Get the bounding rect of the component
+    html2canvas(input, {
+      useCORS: true,
+      allowTaint: true,
+      width: inputRect.width,
+      height: inputRect.height,
+      windowWidth: inputRect.width,
+      windowHeight: inputRect.height,
+      scale: 5,
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        unit: "px",
+        format: [inputRect.width, inputRect.height], // Use component dimensions for PDF format
+      });
+      pdf.addImage(imgData, "PNG", 0, 0, inputRect.width, inputRect.height); // Ensure entire canvas is added
+      pdf.save(member.member_code + "-front.pdf");
+    });
+
+    const input2 = componentRef2.current;
+    const inputRect2 = input2.getBoundingClientRect(); // Get the bounding rect of the component
+    html2canvas(input2, {
+      width: inputRect2.width,
+      height: inputRect2.height,
+      windowWidth: inputRect2.width,
+      windowHeight: inputRect2.height,
+      scale: 5,
+      useCORS: true,
+      allowTaint: true,
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        unit: "px",
+        format: [inputRect2.width, inputRect2.height], // Use component dimensions for PDF format
+      });
+      pdf.addImage(imgData, "PNG", 0, 0, inputRect2.width, inputRect2.height); // Ensure entire canvas is added
+      pdf.save(member.member_code + "-back.pdf");
+    });
+  };
 
   let [deleteMember, setDeleteMember] = useState();
   let onDeleteClick = (item) => {
@@ -72,14 +130,6 @@ export default function Member() {
 
   return (
     <Fragment>
-      <div>
-        <div className="id-card-front">
-          <IdCardFront member={member} family={family} />
-        </div>
-        <div className="id-card-back">
-          <IdCardBack member={member} family={family} />
-        </div>
-      </div>
       <div className="member">
         <h2>
           Member - <span className="member-code">{member?.member_code}</span>
@@ -272,6 +322,20 @@ export default function Member() {
         closeModal={() => setDeleteModal(false)}
         member={deleteMember}
       />
+
+      <div className="hide">
+        <div className="id-card-front">
+          <IdCardFront
+            member={member}
+            family={family}
+            img={img}
+            ref={componentRef}
+          />
+        </div>
+        <div className="id-card-back">
+          <IdCardBack member={member} family={family} ref={componentRef2} />
+        </div>
+      </div>
     </Fragment>
   );
 }
