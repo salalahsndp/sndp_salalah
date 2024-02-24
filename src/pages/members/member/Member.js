@@ -157,6 +157,10 @@ export default function Member() {
               {member?.profession}
             </p>
             <p>
+              <span className="title">Shakha: </span>
+              {member?.shakha}
+            </p>
+            <p>
               <span className="title">DOB: </span>
               {toDateView(member?.DOB)}
             </p>
@@ -209,7 +213,7 @@ export default function Member() {
           <div className="row">
             <p>
               <span className="title">Shakha: </span>
-              {member?.shakha}
+              {member?.shakha_india}
             </p>
             <p>
               <span className="title">Union: </span>

@@ -134,9 +134,11 @@ export default function Members() {
         MEMBER_ID: item.member_code,
         NAME: item.name,
         PROFESSION: item.profession,
+        SHAKHA: item.shakha,
+        EXPIRY: toDateView(item.expiry),
+        WHATSAPP: item.WhatsApp_no,
         DOB: toDateView(item.DOB),
         GSM_NO: item.GSM_no,
-        WHATSAPP: item.WhatsApp_no,
         EMAIL_ID: item.email_id,
         ADDRESS_IN_INDIA: item.address_in_India,
         TELEPHONE_NO: item.tel_no,
@@ -146,7 +148,7 @@ export default function Members() {
         PASSPORT_NO: item.passport_no,
         CIVIL_ID_NO: item.civil_id_no,
         FAMILY_RESIDING_IN_OMAN: item.is_family_residing_in_Oman,
-        SHAKHA: item.shakha,
+        SHAKHA_INDIA: item.shakha_india,
         UNION: item.union,
         DISTRICT: item.district,
         RECEIVED_ON: toDateView(item.received_on),
@@ -156,7 +158,6 @@ export default function Members() {
         APPLICATION_NO: item.application_no,
         PRESIDENT: item.president,
         SECRETARY: item.secretary,
-        EXPIRY: toDateView(item.expiry),
       };
     });
     exportToCSV(excelMembers, "members");
