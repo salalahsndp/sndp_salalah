@@ -79,6 +79,7 @@ export default function Member() {
   const componentRef2 = useRef();
 
   const handlePrint = async () => {
+    let pdf;
     const input = componentRef.current;
     const inputRect = input.getBoundingClientRect(); // Get the bounding rect of the component
     html2canvas(input, {
@@ -91,12 +92,12 @@ export default function Member() {
       scale: 5,
     }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF({
+      pdf = new jsPDF({
         unit: "px",
         format: [inputRect.width, inputRect.height], // Use component dimensions for PDF format
       });
       pdf.addImage(imgData, "PNG", 0, 0, inputRect.width, inputRect.height); // Ensure entire canvas is added
-      pdf.save(member.member_code + "-front.pdf");
+      // pdf.save(member.member_code + "-front.pdf");
     });
 
     const input2 = componentRef2.current;
@@ -111,12 +112,9 @@ export default function Member() {
       allowTaint: true,
     }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF({
-        unit: "px",
-        format: [inputRect2.width, inputRect2.height], // Use component dimensions for PDF format
-      });
+      pdf.addPage([inputRect2.width, inputRect2.height]);
       pdf.addImage(imgData, "PNG", 0, 0, inputRect2.width, inputRect2.height); // Ensure entire canvas is added
-      pdf.save(member.member_code + "-back.pdf");
+      pdf.save(member.member_code + ".pdf");
     });
   };
 
