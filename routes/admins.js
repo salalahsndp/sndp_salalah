@@ -1,6 +1,5 @@
 const express = require("express");
 const adminsRouter = express.Router();
-const bcrypt = require("bcrypt");
 
 //importing models
 const adminModel = require("../models/admin", {
@@ -58,9 +57,7 @@ adminsRouter.get("/:id", getadmin, (req, res) => {
 adminsRouter.patch("/:id", getadmin, async (req, res) => {
   if (req.body.password != null) {
     //checks if request body contains name
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    res.admin.hashedPassword = hashedPassword;
+    res.admin.hashedPassword = req.body.password;
   }
   if (req.body.username != null) {
     //checks if request body contains name
