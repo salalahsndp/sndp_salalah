@@ -115,7 +115,9 @@ membersRouter.get("/:id", getMember, async (req, res) => {
     const familyMemberDetail = await family_memberModel.findOne({
       _id: res.member.family_members[i],
     });
-    familyMemberdetails.push(familyMemberDetail);
+    if (familyMemberDetail) {
+      familyMemberdetails.push(familyMemberDetail);
+    }
   }
 
   res.status(200).json({
