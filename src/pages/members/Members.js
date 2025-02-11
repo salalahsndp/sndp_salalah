@@ -27,12 +27,19 @@ export default function Members() {
   const [shakhas, setShakhas] = React.useState([]);
   let [searchModal, setSearchModal] = useState(false);
 
-  let fetchBranches = async () => {
-    let { data } = await api.get("shakhas");
-    setShakhas(data);
-  };
-
   useEffect(() => {
+    let fetchMembers = async () => {
+      let { data } = await api.get("members");
+      setMembers(data);
+      setFilteredMembers(data);
+      setSearchedMembers(data);
+    };
+
+    let fetchBranches = async () => {
+      let { data } = await api.get("shakhas");
+      setShakhas(data);
+    };
+
     fetchMembers();
     fetchBranches();
   }, []);
@@ -41,12 +48,7 @@ export default function Members() {
   const [filteredMembers, setFilteredMembers] = React.useState([]);
   const [searchedMembers, setSearchedMembers] = React.useState([]);
 
-  let fetchMembers = async () => {
-    let { data } = await api.get("members");
-    setMembers(data);
-    setFilteredMembers(data);
-    setSearchedMembers(data);
-  };
+
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {
@@ -100,24 +102,19 @@ export default function Members() {
   let searchMembers = async (formData) => {
     let result = filteredMembers;
     if (formData.member_id) {
-      result = result.filter((item) => {
-        if (item.member_code.includes(formData.member_id.toString()))
-          return item;
-      });
+      result = result.filter((item) =>
+        item.member_code.includes(formData.member_id.toString())
+      );
+
     }
     if (formData.name) {
-      result = result.filter((item) => {
-        if (item.name.toLowerCase().includes(formData.name.toLowerCase()))
-          return item;
-      });
+      result = result.filter((item) =>
+        item.name.toLowerCase().includes(formData.name.toLowerCase()));
     }
     if (formData.phone) {
-      result = result.filter((item) => {
-        if (
-          item.WhatsApp_no.toLowerCase().includes(formData.phone.toLowerCase())
-        )
-          return item;
-      });
+      result = result.filter((item) =>
+        item.WhatsApp_no.toLowerCase().includes(formData.phone.toLowerCase())
+      );
     }
     setSearchedMembers(result);
     // console.log(result);

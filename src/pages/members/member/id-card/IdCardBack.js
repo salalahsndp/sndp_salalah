@@ -6,18 +6,29 @@ import idlogo from "../../../../assets/id-card/id-logo.png";
 import { toDateView } from "../../../../services/toDateView";
 
 export const IdCardBack = React.forwardRef((props, ref) => {
+  console.log("\n\n")
+  console.log("IdCardBack component is rendering...");
+  console.log("Recieved props:");
+  console.log(props);
+
   let { member, family } = props;
 
+
   if (!member) return;
+
+
 
   return (
     <div ref={ref} className="back-id">
       <div className="family-info">
         <h3 className="family-title">FAMILY MEMBERS</h3>
         {family.map((item) => {
-          return (
-            <p className="family-member-name">{item.family_member_name}</p>
-          );
+          if (item)
+            return (
+              <p className="family-member-name">{item.family_member_name}</p>
+            );
+          else
+            return null;
         })}
       </div>
 

@@ -26,34 +26,35 @@ export default function Member() {
   const { id } = useParams();
 
   useEffect(() => {
+    let fetchMember = async () => {
+      let { data } = await api.get("members/" + id);
+      setMember(data.member);
+      setFamily(data.familyMemberdetails);
+
+      let photo;
+      if (data.member.photo && data.member.photo.includes("http")) {
+        photo = extractFilenameFromUrl(data.member.photo);
+      } else {
+        return;
+      }
+
+      try {
+        // Fetch the image from S3
+        const { data } = await api.get("file/photo/" + photo);
+        setImg(data);
+        // console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchMember();
-  }, []);
+  }, [id]);
 
   const [member, setMember] = React.useState({});
   const [family, setFamily] = React.useState([]);
   const [img, setImg] = React.useState(null);
 
-  let fetchMember = async () => {
-    let { data } = await api.get("members/" + id);
-    setMember(data.member);
-    setFamily(data.familyMemberdetails);
 
-    let photo;
-    if (data.member.photo && data.member.photo.includes("http")) {
-      photo = extractFilenameFromUrl(data.member.photo);
-    } else {
-      return;
-    }
-
-    try {
-      // Fetch the image from S3
-      const { data } = await api.get("file/photo/" + photo);
-      setImg(data);
-      // console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {

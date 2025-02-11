@@ -21,25 +21,26 @@ export default function EditMember() {
   const { id } = useParams();
 
   useEffect(() => {
-    fetcMember();
+    let fetchMember = async () => {
+      let { data } = await api.get("members/" + id);
+      setMember(data.member);
+      setFamily(data.familyMemberdetails);
+    };
+
+    let fetchBranches = async () => {
+      let { data } = await api.get("shakhas");
+      setShakhas(data);
+    };
+    fetchMember();
     fetchBranches();
-  }, []);
+  }, [id]);
 
   const [member, setMember] = React.useState({});
   const [family, setFamily] = React.useState([]);
   const [shakhas, setShakhas] = React.useState([]);
   const [file, setFile] = useState(null);
 
-  let fetcMember = async () => {
-    let { data } = await api.get("members/" + id);
-    setMember(data.member);
-    setFamily(data.familyMemberdetails);
-  };
 
-  let fetchBranches = async () => {
-    let { data } = await api.get("shakhas");
-    setShakhas(data);
-  };
 
   const [familyMembersCount, setFamilyMembersCount] = useState(0);
   const [familyFormData, setFamilyFormData] = useState([]);
